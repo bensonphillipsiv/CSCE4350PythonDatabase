@@ -62,12 +62,19 @@ mycursor.execute(
 mycursor.execute(
     "CREATE TABLE Bricks ("
     "brick_id INT, "
-    "store_id INT, "
-    "stock_quantity INT, "
     "brick_price INT, "
     "description VARCHAR(255), "
-    "PRIMARY KEY (brick_id), "
-    "FOREIGN KEY (store_id) REFERENCES Stores(store_id))"
+    "PRIMARY KEY (brick_id))"
+)
+
+# creating the Inventory Table
+mycursor.execute(
+    "CREATE TABLE Inventory ("
+    "brick_id INT, "
+    "store_id INT, "
+    "inventory_quantity INT, "
+    "FOREIGN KEY (store_id) REFERENCES Stores(store_id), "
+    "FOREIGN KEY (brick_id) REFERENCES Bricks(brick_id))"
 )
 
 # creating the BrickSetItems table
