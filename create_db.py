@@ -63,5 +63,34 @@ mycursor.execute(
     "brick_price INT, "
     "description VARCHAR(255), "
     "PRIMARY KEY (brick_id))"
+#creating the Employee table
+mycursor.execute(
+    "CREATE TABLE Employees (employee_id INT, "
+    "employee_name VARCHAR(255), "
+    "employee_password VARCHAR(255), "
+    "store_id INT, "
+    "employee_type INT, "
+    "PRIMARY KEY (employee_id))"
 )
 
+#creating the Stores table
+mycursor.execute(
+    "CREATE TABLE Stores (store_id INT, "
+    "store_name VARCHAR(255), "
+    "store_type int, "
+    "PRIMARY KEY (store_id))"
+)
+
+#creating the BrickSetItems table
+mycursor.execute(
+    "CREATE TABLE BrickSetItems (brick_set_id INT, "
+    "brick_id INT, "
+    "quanity INT)"
+)
+
+#creating the BrickSet table
+mycursor.execute(
+    "CREATE TABLE BrickSet (brick_set_id INT, "
+    "description VARCHAR(255), "
+    "PRIMARY KEY (brick_set_id))"
+)
