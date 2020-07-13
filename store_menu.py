@@ -1,19 +1,13 @@
 from tabulate import tabulate
-import os
-
-
 
 
 def menu():
    
-    print("\n \n \n \n \n")
+    print("\n")
     menutext = "Welcome to the Lego store"
     table = [[menutext]]
     output = tabulate(table, tablefmt='grid')
     print(output)
-
-
-
 
     print("1.) \n")
 

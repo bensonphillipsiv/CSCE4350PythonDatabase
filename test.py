@@ -8,4 +8,6 @@ mydb = mysql.connector.connect(
 
 print(mydb)  
 
-#hello benson
+mycursor = mydb.cursor()
+
+mycursor.execute("CREATE DATABASE testdb")
