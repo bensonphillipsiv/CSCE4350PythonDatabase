@@ -76,6 +76,7 @@ mycursor.execute(
     "brick_set_id INT, "
     "brick_id INT, "
     "quantity INT, "
+    "FOREIGN KEY (brick_id) REFERENCES Bricks(brick_id), "
     "FOREIGN KEY (brick_set_id) REFERENCES BrickSets(brick_set_id))"
 )
 
