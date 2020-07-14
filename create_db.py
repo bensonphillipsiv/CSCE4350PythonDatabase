@@ -7,7 +7,7 @@ legodb = mysql.connector.connect(
 )
 
 mycursor = legodb.cursor()
-mycursor.execute("DROP DATABASE LegoStoreDatabase")
+#mycursor.execute("DROP DATABASE LegoStoreDatabase")
 
 mycursor.execute("CREATE DATABASE LegoStoreDatabase")
 
@@ -61,7 +61,7 @@ mycursor.execute(
 # creating the Bricks Table
 mycursor.execute(
     "CREATE TABLE Bricks ("
-    "brick_id INT, "
+    "brick_id VARCHAR(255), "
     "brick_price INT, "
     "description VARCHAR(255), "
     "PRIMARY KEY (brick_id))"
@@ -70,7 +70,7 @@ mycursor.execute(
 # creating the Inventory Table
 mycursor.execute(
     "CREATE TABLE Inventory ("
-    "brick_id INT, "
+    "brick_id VARCHAR(255), "
     "store_id INT, "
     "inventory_quantity INT, "
     "FOREIGN KEY (store_id) REFERENCES Stores(store_id), "
@@ -81,7 +81,7 @@ mycursor.execute(
 mycursor.execute(
     "CREATE TABLE BrickSetItems ("
     "brick_set_id INT, "
-    "brick_id INT, "
+    "brick_id VARCHAR(255), "
     "quantity INT, "
     "FOREIGN KEY (brick_id) REFERENCES Bricks(brick_id), "
     "FOREIGN KEY (brick_set_id) REFERENCES BrickSets(brick_set_id))"
@@ -105,7 +105,7 @@ mycursor.execute(
 mycursor.execute(
     "CREATE TABLE OrderItems ("
     "order_id INT, "
-    "brick_id INT, "
+    "brick_id VARCHAR(255), "
     "brick_set_id INT, "
     "brick_quantity INT, "
     "brick_set_quantity INT, "
