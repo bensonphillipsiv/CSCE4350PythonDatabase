@@ -26,9 +26,9 @@ mycursor.execute(
     "customer_id INT AUTO_INCREMENT, "
     "customer_password VARCHAR(255), "
     "customer_name VARCHAR(255), "
-    "customer_phone INT, "
+    "customer_phone VARCHAR(255), "
     "customer_address VARCHAR(255), "
-    "customer_email INT(255), "
+    "customer_email VARCHAR(255), "
     "PRIMARY KEY (customer_id))"
 )
 

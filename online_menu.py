@@ -62,34 +62,35 @@ def customerSignup():
 
     #customer email
     print("\nEnter Signup Email:")
-    username = input()
+    customer_email = input()
 
     #customer password
     print("\nEnter Password:")
-    password = input()
+    customer_password = input()
 
     #verifying password
     print("\nPlease Verify Password:")
-    password_verification = input()
+    customer_password_verification = input()
 
     #verifying that the passwords match,
-    if (password == password_verification):
+    if (customer_password == customer_password_verification):
         print("\nCongrats, Passwords Matched!")
 
     else:
-        while (password != password_verification):
+        while (customer_password != customer_password_verification):
             print("\nSorry, Passwords Did Not Match, Please try again.")
 
             #customer password
             print("\nEnter Password:")
-            password = input()
+            customer_password = input()
 
             #verifying password
             print("\nPlease Verify Password:")
-            password_verification = input()
+            customer_password_verification = input()
 
         print("\nCongrats, Passwords Matched!")
 
+    database_operations.addNewCustomer(customer_name, customer_phone, customer_address, customer_email, customer_password)
 
 
     #place user data into database

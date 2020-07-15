@@ -1,3 +1,24 @@
+import mysql.connector
+
+
+legodb = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    passwd="1234",
+    database="LegoStoreDatabase"
+)
+
+mycursor = legodb.cursor()
+
+def addNewCustomer(customer_name, customer_phone, customer_address, customer_email, customer_password):
+
+    # this function will add a user to the database
+    sqlformula = "INSERT INTO Customers(customer_name, customer_phone, customer_address, customer_email, customer_password) VALUES(%s, %s, %s, %s, %s)"
+    newcustomer = (customer_name, customer_phone, customer_address, customer_email, customer_password)
+    mycursor.execute(sqlformula, newcustomer)
+    legodb.commit()
+
+
 
 def checkItems(store_number, part_number_list, list_amounts):
     for i in range(len(part_number_list)):
