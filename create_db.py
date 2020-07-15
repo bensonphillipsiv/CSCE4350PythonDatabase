@@ -29,6 +29,7 @@ mycursor.execute(
     "customer_phone VARCHAR(255), "
     "customer_address VARCHAR(255), "
     "customer_email VARCHAR(255), "
+    "customer_credit_card VARCHAR(255), "
     "PRIMARY KEY (customer_id))"
 )
 
