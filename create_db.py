@@ -7,7 +7,7 @@ legodb = mysql.connector.connect(
 )
 
 mycursor = legodb.cursor()
-#mycursor.execute("DROP DATABASE LegoStoreDatabase")
+# mycursor.execute("DROP DATABASE LegoStoreDatabase")
 
 mycursor.execute("CREATE DATABASE LegoStoreDatabase")
 
@@ -32,7 +32,7 @@ mycursor.execute(
     "PRIMARY KEY (customer_id))"
 )
 
-#creating the Stores table
+# creating the Stores table
 mycursor.execute(
     "CREATE TABLE Stores (store_id INT, "
     "store_name VARCHAR(255), "
@@ -40,7 +40,7 @@ mycursor.execute(
     "PRIMARY KEY (store_id))"
 )
 
-#creating the Employee table
+# creating the Employee table
 mycursor.execute(
     "CREATE TABLE Employees (employee_id INT, "
     "employee_name VARCHAR(255), "
@@ -51,7 +51,7 @@ mycursor.execute(
     "FOREIGN KEY (store_id) REFERENCES Stores(store_id))"
 )
 
-#creating the BrickSet table
+# creating the BrickSet table
 mycursor.execute(
     "CREATE TABLE BrickSets (brick_set_id INT, "
     "description VARCHAR(255), "

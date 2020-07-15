@@ -1,44 +1,86 @@
 from tabulate import tabulate
 
 
-def menu():
-   
-    print("\n")
+def searchMenu():
+    menutext = "Search Menu"
+    table = [[menutext]]
+    output = tabulate(table, tablefmt='grid')
+    print(output)
+
+    # menu options
+    print("Enter a Keyword to Search for Sets or Bricks:\n")
+    keyword = input()
+
+    # search through descriptions in database and return items that match description
+
+
+def orderMenu():
+    menutext = "Order Menu"
+    table = [[menutext]]
+    output = tabulate(table, tablefmt='grid')
+    print(output)
+
+    part_number = 'N/A'
+    part_number_list = []
+    while(part_number != '0'):
+        print("Enter the Part Number to Order or Enter '0' to Complete Order:")
+        part_number = input()
+
+        if part_number == '0':
+            break
+
+        part_number_list.append(part_number)      # adding each part to a list
+
+
+def employeeMenu():
+    menutext = "Employee Menu"
+    table = [[menutext]]
+    output = tabulate(table, tablefmt='grid')
+    print(output)
+
+
+def employeeLogin():
+    menutext = "Employee Login"
+    table = [[menutext]]
+    output = tabulate(table, tablefmt='grid')
+    print(output)
+
+    # Login
+    print("Enter Employee Login Username:")
+    username = input()
+    print("Enter Employee Login Password:")
+    password = input()
+
+    # perform database checking operations
+    login = True
+    if (login):
+        employeeMenu()
+    else:   # return to base menu
+        print("Incorrect Login")
+        baseMenu()
+
+
+def baseMenu():
     menutext = "Welcome to the Lego store"
     table = [[menutext]]
     output = tabulate(table, tablefmt='grid')
     print(output)
 
-    print("1.) \n")
+    # menu options
+    print("1.) Search for Sets or Bricks\n")
+    print("2.) Order Sets or Bricks\n")
+    print("3.) Employee Login\n")
 
-    print("2.) \n")
-
-    print("3.) \n")
-
-    print("4.) \n")
-
-    print("5.) \n")
-    
     choice = input()
 
-    if choice ==  "1":
-        print("You have 1 tussy \n")
-        menu()
-    
-    if choice ==  "2":
-        print("You have 2 tussy \n")
-        menu()
+    if choice == "1":
+        searchMenu()
+    elif choice == "2":
+        orderMenu()
+    elif choice == "3":
+        employeeLogin()
+    else:
+        print("Please Enter a Correct Menu Choice...")
 
-    if choice ==  "3":
-        print("You have 3 tussy \n")
-        menu()
 
-    if choice ==  "4":
-        print("You have 4 tussy \n")
-        menu()
-
-    if choice ==  "5":
-        print("You have 5 tussy \n")
-        menu()
-
-menu()
+baseMenu()
