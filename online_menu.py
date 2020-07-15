@@ -60,9 +60,25 @@ def customerSignup():
     print("\nEnter Your Address:")
     customer_address = input()
 
-    #customer email
-    print("\nEnter Signup Email:")
-    customer_email = input()
+    email_check = 1
+    
+    #
+    #Checks if email is already in Use
+    #
+    while (email_check == 1):
+        #customer email
+        print("\nEnter Signup Email:")
+        customer_email = input()
+
+        #
+        #Checks if email is already in Use
+        #
+        email_check = database_operations.columnCheck("Customers", "customer_email", customer_email)
+        
+        if (email_check == 0):
+            print("Email Has Been Accepted.\n")
+        else:
+            print("Email Is Already In The System, Please Use An Alternative Email.\n")
 
     #customer password
     print("\nEnter Password:")
