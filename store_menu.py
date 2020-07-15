@@ -1,6 +1,15 @@
 from tabulate import tabulate
 import database_operations
 
+def introStoreMenu():
+    menutext = "Welcome to the In Store Lego Store. \nPlease Allow a representative to assist you."
+    table = [[menutext]]
+    output = tabulate(table, tablefmt='grid')
+    print(output)
+
+    employeeLogin()
+    
+
 
 def searchMenu():
     menutext = "Search Menu"
@@ -107,58 +116,7 @@ def employeeMenu():
     output = tabulate(table, tablefmt='grid')
     print(output)
 
-def customerSignup():
-    menutext = "New Customer Sign Up"
-    table = [[menutext]]
-    output = tabulate(table, tablefmt='grid')
-    print(output)
 
-    # User name input
-    print("\nEnter Your Name:")
-    customer_name = input()
-
-    #Phone number
-    print("\nEnter Your Phone Number:")
-    customer_phone = input()
-
-    #customer adress
-    print("\nEnter Your Address:")
-    customer_address = input()
-
-    #customer email
-    print("\nEnter Signup Email:")
-    username = input()
-
-    #customer password
-    print("\nEnter Password:")
-    password = input()
-
-    #verifying password
-    print("\nPlease Verify Password:")
-    password_verification = input()
-
-    #verifying that the passwords match,
-    if (password == password_verification):
-        print("\nCongrats, Passwords Matched!")
-
-    else:
-        while (password != password_verification):
-            print("\nSorry, Passwords Did Not Match, Please try again.")
-
-            #customer password
-            print("\nEnter Password:")
-            password = input()
-
-            #verifying password
-            print("\nPlease Verify Password:")
-            password_verification = input()
-
-        print("\nCongrats, Passwords Matched!")
-
-    #place user data into database
-
-    #let user know he successfully signed up!
-    print("\nWoohoo " + customer_name + ", You Have Succesfully Created an Account!")
 
 def employeeLogin():
     menutext = "Employee Login"
@@ -178,11 +136,11 @@ def employeeLogin():
         employeeMenu()
     else:   # return to base menu
         print("Incorrect Login")
-        baseMenu()
+        introStoreMenu()
 
 
 def baseMenu():
-    menutext = "Welcome to the Lego store"
+    menutext = "Welcome to the Lego store\n(Please Select A Number Choice Below)\n"
     table = [[menutext]]
     output = tabulate(table, tablefmt='grid')
     print(output)
@@ -191,7 +149,6 @@ def baseMenu():
     print("1.) Search for Sets or Bricks\n")
     print("2.) Order Sets or Bricks\n")
     print("3.) Employee Login\n")
-    print("4.) Customer Signup\n")
 
     choice = input()
 
@@ -201,10 +158,7 @@ def baseMenu():
         orderMenu()
     elif choice == "3":
         employeeLogin()
-    elif choice == "4":
-        customerSignup()
     else:
         print("Please Enter a Correct Menu Choice...")
 
 
-baseMenu()
