@@ -81,7 +81,6 @@ def loginAuth(email, password, db_table, db_column):
     # this will verify whether the email exists in the database
     if (email_check == 1):
         sqlFormula = "SELECT customer_password FROM " +db_table+ " WHERE " +db_column+ " = '" + email+ "'"
-        print(sqlFormula)
         mycursor.execute(sqlFormula)
         check = mycursor.fetchone()
         check_string = str(check[0])
@@ -95,7 +94,7 @@ def loginAuth(email, password, db_table, db_column):
         else:
             print ("\nUsername or Password Failed! Please Try Again.\n")
             return 0
-            
+
     else:
         print ("\nUsername or Password Failed! Please Try Again.\n")
         return 0
