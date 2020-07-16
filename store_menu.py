@@ -1,6 +1,15 @@
 from tabulate import tabulate
 import database_operations
 
+def introStoreMenu():
+    menutext = "Welcome to the In Store Lego Store. \nPlease Allow a representative to assist you."
+    table = [[menutext]]
+    output = tabulate(table, tablefmt='grid')
+    print(output)
+
+    employeeLogin()
+    
+
 
 def searchMenu():
     menutext = "Search Menu"
@@ -107,6 +116,7 @@ def employeeMenu():
     print(output)
 
 
+
 def employeeLogin():
     menutext = "Employee Login"
     table = [[menutext]]
@@ -125,11 +135,11 @@ def employeeLogin():
         employeeMenu()
     else:   # return to base menu
         print("Incorrect Login")
-        baseMenu()
+        introStoreMenu()
 
 
 def baseMenu():
-    menutext = "Welcome to the Lego store"
+    menutext = "Welcome to the Lego store\n(Please Select A Number Choice Below)\n"
     table = [[menutext]]
     output = tabulate(table, tablefmt='grid')
     print(output)
@@ -151,4 +161,3 @@ def baseMenu():
         print("Please Enter a Correct Menu Choice...")
 
 
-baseMenu()

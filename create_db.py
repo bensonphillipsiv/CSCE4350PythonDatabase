@@ -7,7 +7,7 @@ legodb = mysql.connector.connect(
 )
 
 mycursor = legodb.cursor()
-# mycursor.execute("DROP DATABASE LegoStoreDatabase")
+mycursor.execute("DROP DATABASE LegoStoreDatabase")
 
 mycursor.execute("CREATE DATABASE LegoStoreDatabase")
 
@@ -23,12 +23,13 @@ mycursor = legodb.cursor()
 # creating the Customer table
 mycursor.execute(
     "CREATE TABLE Customers ("
-    "customer_id INT, "
+    "customer_id INT AUTO_INCREMENT, "
     "customer_password VARCHAR(255), "
     "customer_name VARCHAR(255), "
-    "customer_phone INT, "
+    "customer_phone VARCHAR(255), "
     "customer_address VARCHAR(255), "
-    "customer_email INT(255), "
+    "customer_email VARCHAR(255), "
+    "customer_credit_card VARCHAR(255), "
     "PRIMARY KEY (customer_id))"
 )
 
@@ -39,10 +40,9 @@ mycursor.execute(
     "store_type int, "
     "PRIMARY KEY (store_id))"
 )
-
 # creating the Employee table
 mycursor.execute(
-    "CREATE TABLE Employees (employee_id INT, "
+    "CREATE TABLE Employees (employee_id INT AUTO_INCREMENT, "
     "employee_name VARCHAR(255), "
     "employee_password VARCHAR(255), "
     "store_id INT, "
@@ -90,7 +90,7 @@ mycursor.execute(
 # creating the Orders Table
 mycursor.execute(
     "CREATE TABLE Orders ("
-    "order_id INT, "
+    "order_id INT AUTO_INCREMENT, "
     "customer_id INT, "
     "employee_id INT, "
     "payment_method VARCHAR(255), "
