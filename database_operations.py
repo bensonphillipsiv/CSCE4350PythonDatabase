@@ -28,7 +28,7 @@ def columnCheck(db_table, db_column, db_item):
     check = mycursor.fetchone()
     #legodb.commit()
     
-    return check[0]
+    return check[0] 
 
 
 def addNewCustomer(customer_name, customer_phone, customer_address, customer_email, customer_password):
