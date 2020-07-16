@@ -35,18 +35,24 @@ mycursor.execute(
 
 # creating the Stores table
 mycursor.execute(
-    "CREATE TABLE Stores (store_id INT, "
+    "CREATE TABLE Stores ("
+    "store_id VARCHAR(255), "
     "store_name VARCHAR(255), "
-    "store_type int, "
     "PRIMARY KEY (store_id))"
 )
+
+mycursor.execute("INSERT INTO Stores VALUES('newyork', 'newyork')")
+mycursor.execute("INSERT INTO Stores VALUES('losangeles', 'losangeles')")
+mycursor.execute("INSERT INTO Stores VALUES('online', 'online')")
+
 # creating the Employee table
 mycursor.execute(
-    "CREATE TABLE Employees (employee_id INT AUTO_INCREMENT, "
+    "CREATE TABLE Employees ("
+    "employee_id INT AUTO_INCREMENT, "
     "employee_name VARCHAR(255), "
+    "employee_type VARCHAR(255), "
+    "store_id VARCHAR(255), "
     "employee_password VARCHAR(255), "
-    "store_id INT, "
-    "employee_type INT, "
     "PRIMARY KEY (employee_id), "
     "FOREIGN KEY (store_id) REFERENCES Stores(store_id))"
 )
@@ -71,7 +77,7 @@ mycursor.execute(
 mycursor.execute(
     "CREATE TABLE Inventory ("
     "brick_id VARCHAR(255), "
-    "store_id INT, "
+    "store_id VARCHAR(255), "
     "inventory_quantity INT, "
     "FOREIGN KEY (store_id) REFERENCES Stores(store_id), "
     "FOREIGN KEY (brick_id) REFERENCES Bricks(brick_id))"

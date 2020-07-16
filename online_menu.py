@@ -1,7 +1,8 @@
 from tabulate import tabulate
 import database_operations
 
-#this menu will welcome user as well as determine whether they need to login or sign up.
+
+# this menu will welcome user as well as determine whether they need to login or sign up.
 def introOnlineMenu():
     menutext = "Welcome to the Online Lego store. \nPlease Signup/Login.\n(Please Select A Number Choice Below)"
     table = [[menutext]]
@@ -18,26 +19,6 @@ def introOnlineMenu():
         customerSignup()
     elif choice == "2":
         customerLogin()
-    else:
-        print("Please Enter a Correct Menu Choice...")
-
-def onlineBaseMenu():
-    menutext = "Online Lego store\n(Please Select A Number Choice Below)"
-    table = [[menutext]]
-    output = tabulate(table, tablefmt='grid')
-    print(output)
-
-    # menu options
-    print("1.) Search for Sets or Bricks\n")
-    print("2.) Order Sets or Bricks\n")
-    print("3.) Customer Signup\n")
-
-    choice = input()
-
-    if choice == "1":
-        searchMenu()
-    elif choice == "2":
-        orderMenu()
     else:
         print("Please Enter a Correct Menu Choice...")
 
@@ -108,9 +89,7 @@ def customerSignup():
 
     database_operations.addNewCustomer(customer_name, customer_phone, customer_address, customer_email, customer_password)
 
-
     #place user data into database
-
     #let user know he successfully signed up!
     print("\nWoohoo " + customer_name + ", You Have Succesfully Created an Account!")
 

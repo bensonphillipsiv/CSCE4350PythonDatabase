@@ -18,6 +18,8 @@ mycursor = legodb.cursor()
 #if hellokitty@gmail exists in the Customers table under the customer_email column then it will return a 1 for TRUE or a 0 for FALSE
 #True = It exists
 #False = It does not exist
+
+
 def columnCheck(db_table, db_column, db_item):
     #print("Checking db_item: ", db_item)
     sqlFormula = "SELECT EXISTS(SELECT * from " +db_table+" WHERE( " +db_column+ "='"+db_item+"'))"
@@ -32,7 +34,6 @@ def columnCheck(db_table, db_column, db_item):
 
 
 def addNewCustomer(customer_name, customer_phone, customer_address, customer_email, customer_password):
-
     # this function will add a user to the database
     sqlformula = "INSERT INTO Customers(customer_name, customer_phone, customer_address, customer_email, customer_password) VALUES(%s, %s, %s, %s, %s)"
     newcustomer = (customer_name, customer_phone, customer_address, customer_email, customer_password)
@@ -40,8 +41,15 @@ def addNewCustomer(customer_name, customer_phone, customer_address, customer_ema
     legodb.commit()
 
 
+def addNewEmployee(employee_name, employee_type, employee_store, employee_password):
+    # this function will add a user to the database
+    sqlformula = "INSERT INTO Employees(employee_name, employee_type, store_id, employee_password) VALUES(%s, %s, %s, %s)"
+    newemployee = (employee_name, employee_type, employee_store, employee_password)
+    mycursor.execute(sqlformula, newemployee)
+    legodb.commit()
 
-def checkItems(store_number, part_number_list, list_amounts):
+
+def checkItems(store_id, part_number_list, list_amounts):
     for i in range(len(part_number_list)):
         # check each part number in the store_number provided
         part_number_list[i]

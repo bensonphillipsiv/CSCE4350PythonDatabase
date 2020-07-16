@@ -1,25 +1,27 @@
 from tabulate import tabulate
-import database_operations
 import online_menu
 import store_menu
 
-def introMenu():
-    menutext = "Welcome to the Lego store. \nWould You Like To Shop Online or In Store?\n(Please Select A Number Choice Below)"
+
+def intro():
+    menutext = "Welcome to the Lego store. \nPlease Select Store Mode or Online Mode:)"
     table = [[menutext]]
     output = tabulate(table, tablefmt='grid')
     print(output)
 
     # menu options
-    print("1.) Online\n")
-    print("2.) In Store\n")
+    print("1.) Store Mode (Employees)\n")
+    print("2.) Online Mode (Customers)\n")
 
     choice = input()
 
     if choice == "1":
-        online_menu.introOnlineMenu()
-    elif choice == "2":
         store_menu.introStoreMenu()
+    elif choice == "2":
+        online_menu.introOnlineMenu()
     else:
         print("Please Enter a Correct Menu Choice...")
+        intro()
 
-introMenu()
+
+intro()

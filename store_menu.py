@@ -1,27 +1,135 @@
 from tabulate import tabulate
 import database_operations
+import search_order
+
 
 def introStoreMenu():
-    menutext = "Welcome to the In Store Lego Store. \nPlease Allow a representative to assist you."
-    table = [[menutext]]
-    output = tabulate(table, tablefmt='grid')
-    print(output)
-
-    employeeLogin()
-    
-
-
-def searchMenu():
-    menutext = "Search Menu"
+    menutext = "Employee Login/ Signup"
     table = [[menutext]]
     output = tabulate(table, tablefmt='grid')
     print(output)
 
     # menu options
-    print("Enter a Keyword to Search for Sets or Bricks:\n")
-    keyword = input()
+    print("1.) Signup\n")
+    print("2.) Login\n")
 
-    # search through descriptions in database and return items that match description
+    choice = input()
+
+    if choice == "1":
+        employeeSignup()
+    elif choice == "2":
+        employeeSignup()
+    else:
+        print("Please Enter a Correct Menu Choice...")
+
+
+def employeeSignup():
+    menutext = "New Employee Sign Up"
+    table = [[menutext]]
+    output = tabulate(table, tablefmt='grid')
+    print(output)
+
+    # Name input
+    print("\nEnter Your Name:")
+    employee_name = input()
+
+    # Employee Type
+    print("Enter Employee Type:\n")
+    print("1.) Salesman\n")
+    print("2.) Manager\n")
+
+    choice = input()
+
+    if choice == "1":
+        employee_type = "salesman"
+    elif choice == "2":
+        employee_type = "manager"
+
+    # Employee Store
+    print("Enter Employee Store:\n")
+    print("1.) New York\n")
+    print("2.) Los Angeles\n")
+
+    choice = input()
+
+    if choice == "1":
+        employee_store = "newyork"
+    elif choice == "2":
+        employee_store = "losangles"
+
+    # Employee password
+    print("\nEnter Password:")
+    employee_password = input()
+
+    # verifying password
+    print("\nPlease Verify Password:")
+    employee_password_verification = input()
+
+    # verifying that the passwords match,
+    if (employee_password == employee_password_verification):
+        print("\nCongrats, Passwords Matched!")
+    else:
+        while (employee_password != employee_password_verification):
+            print("\nSorry, Passwords Did Not Match, Please try again.")
+
+            # employee password
+            print("\nEnter Password:")
+            employee_password = input()
+
+            # verifying password
+            print("\nPlease Verify Password:")
+            employee_password_verification = input()
+
+        print("\nCongrats, Passwords Matched!")
+
+    database_operations.addNewEmployee(employee_name, employee_type, employee_store, employee_password)
+
+    # place user data into database
+    # let user know he successfully signed up!
+    print("\nWoohoo " + employee_name + ", You Have Successfully Created an Account!")
+
+    if employee_type == "manager":
+        managerMenu()
+    else:
+        salesmanMenu()
+
+
+# manager menu to update
+def managerMenu():
+    menutext = "Manager Menu"
+    table = [[menutext]]
+    output = tabulate(table, tablefmt='grid')
+    print(output)
+
+    # menu options
+    print("1.) Add Inventory\n")
+    print("2.) Add Store\n")
+    print("3.) Generate Report\n")
+    choice = input()
+
+    if choice == "1":
+        addInventory()
+    elif choice == "2":
+        addStore()
+    elif choice == "3":
+        print("beep... boop... report generated")
+    else:
+        print("Please Enter a Correct Menu Choice...")
+
+
+def salesmanMenu():
+    menutext = "Salesman Menu"
+    table = [[menutext]]
+    output = tabulate(table, tablefmt='grid')
+    print(output)
+
+    # menu options
+    print("1.) Sell Items\n")
+    choice = input()
+
+    if choice == "1":
+        search_order.orderMenu()
+        paymentMenu()
 
 
 def paymentMenu():
@@ -30,134 +138,35 @@ def paymentMenu():
     output = tabulate(table, tablefmt='grid')
     print(output)
 
-    print("Are you a New or Returning Customer?\n")
-    print("1.) New Customer\n")
-    print("2.) Returning Customer\n")
-
+    # payment type
+    print("Payment Type:\n")
+    print("1.) Cash\n")
+    print("2.) Card\n")
     choice = input()
-    if choice == "1":       # new customer login and
-        # username and password
-        print("Enter New Username:\n")
-        username = input()
-        print("Enter New Password:\n")
-        password = input()
-
-        # payment type
-        print("Payment Type:\n")
-        print("1.) Cash\n")
-        print("2.) Card\n")
+    if choice == "1":
+        payment_type = "cash"
+    else:
+        payment_type = "card"
+        print("Card Type:\n")
+        print("1.) VISA\n")
+        print("2.) AMEX\n")
+        print("3.) MC\n")
         choice = input()
         if choice == "1":
-            payment_type = "cash"
-        else:
-            payment_type = "card"
-            print("Card Type:\n")
-            print("1.) VISA\n")
-            print("2.) AMEX\n")
-            print("3.) MC\n")
-            choice = input()
-            if choice == "1": card_type = "VISA"
-            elif choice == "2": card_type = "AMEX"
-            elif choice == "3": card_type = "MC"
+            card_type = "VISA"
+        elif choice == "2":
+            card_type = "AMEX"
+        elif choice == "3":
+            card_type = "MC"
 
-        # Card Number
-        print("Enter Card Number:\n")
-        card_number = input()
+    # Card Number
+    print("Enter Card Number:\n")
+    card_number = input()
+    
 
-    elif choice == "2":
-        print("Enter Username:\n")
-        username = input()
-        print("Enter Password:\n")
-        password = input()
-
-        # check if a user and use information
-    else:
-        print("Please Input Correct Choice...")
-        paymentMenu()
+def addInventory():
+    print("adding inventory")
 
 
-def orderMenu():
-    menutext = "Order Menu"
-    table = [[menutext]]
-    output = tabulate(table, tablefmt='grid')
-    print(output)
-
-    print("What Store are you Shopping at?")
-    print("1.) New York\n")
-    print("2.) Los Angeles\n")
-    print("3.) Online\n")
-    store_number = input()
-
-    part_number = 'N/A'
-    part_number_list = []
-    list_amounts = []
-    while(part_number != '0'):
-        print("Enter the Part Number to Order or Enter '0' to Complete Order:")
-        part_number = input()
-        if part_number == '0':
-            break
-        part_number_list.append(part_number)      # adding each part to a list
-
-        print("Enter the Amount to Buy:")
-        amount = input()
-        list_amounts.append(amount)
-
-    if (database_operations.checkItems(store_number, part_number_list, list_amounts)):      # if there is stock available to buy
-        database_operations.updateItems(store_number, part_number_list, list_amounts, -1)       # update database
-        paymentMenu() # pay for items
-    else:
-        print("Out of Stock on Items")
-
-
-def employeeMenu():
-    menutext = "Employee Menu"
-    table = [[menutext]]
-    output = tabulate(table, tablefmt='grid')
-    print(output)
-
-
-
-def employeeLogin():
-    menutext = "Employee Login"
-    table = [[menutext]]
-    output = tabulate(table, tablefmt='grid')
-    print(output)
-
-    # Login
-    print("Enter Employee Login Username:")
-    username = input()
-    print("Enter Employee Login Password:")
-    password = input()
-
-    # perform database checking operations
-    login = True
-    if (login):
-        employeeMenu()
-    else:   # return to base menu
-        print("Incorrect Login")
-        introStoreMenu()
-
-
-def baseMenu():
-    menutext = "Welcome to the Lego store\n(Please Select A Number Choice Below)\n"
-    table = [[menutext]]
-    output = tabulate(table, tablefmt='grid')
-    print(output)
-
-    # menu options
-    print("1.) Search for Sets or Bricks\n")
-    print("2.) Order Sets or Bricks\n")
-    print("3.) Employee Login\n")
-
-    choice = input()
-
-    if choice == "1":
-        searchMenu()
-    elif choice == "2":
-        orderMenu()
-    elif choice == "3":
-        employeeLogin()
-    else:
-        print("Please Enter a Correct Menu Choice...")
-
-
+def addStore():
+    print("adding a new store")
