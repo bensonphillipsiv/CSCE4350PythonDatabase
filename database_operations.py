@@ -71,3 +71,35 @@ def updateItems(store_number, part_number_list, list_amounts, val):
         print("Updated Database")
     else:
         print("error adding or subtracting to update DB")
+
+
+#this function will verify password and login, will return a 1 for login and 0 for failure
+def loginAuth(email, password, db_table, db_column):
+
+    email_check = columnCheck("Customers", "customer_email", email)
+    
+    # this will verify whether the email exists in the database
+    if (email_check == 1):
+        sqlFormula = "SELECT customer_password FROM " +db_table+ " WHERE " +db_column+ " = '" + email+ "'"
+        print(sqlFormula)
+        mycursor.execute(sqlFormula)
+        check = mycursor.fetchone()
+        check_string = str(check[0])
+        password_string = str(password)
+        
+        # this will verify whether the submitted password matches the one the pertaining to the account
+        if (check_string == password_string):
+            print ("Login Succesful!\n\n\n")
+            return 1
+
+        else:
+            print ("\nUsername or Password Failed! Please Try Again.\n")
+            return 0
+            
+    else:
+        print ("\nUsername or Password Failed! Please Try Again.\n")
+        return 0
+
+
+
+    #return check[0] 

@@ -1,6 +1,6 @@
 from tabulate import tabulate
 import database_operations
-
+import search_order
 
 # this menu will welcome user as well as determine whether they need to login or sign up.
 def introOnlineMenu():
@@ -93,9 +93,21 @@ def customerSignup():
     #let user know he successfully signed up!
     print("\nWoohoo " + customer_name + ", You Have Succesfully Created an Account!")
 
-
+#this function will login in the customer
 def customerLogin():
-    print("you loggedin bro")
+    #customer email
+    print("\nEmail:")
+    customer_email = input()
 
+    print("\nPassword:")
+    customer_password = input()
 
+    #this is where we check whether the creedentials work.
+    login_check = database_operations.loginAuth(customer_email, customer_password, "Customers", "customer_email")
+     
+    if (login_check == 1):
+        search_order.orderMenu()
+    else:
+        customerLogin()
+    
 
