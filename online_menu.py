@@ -103,7 +103,7 @@ def customerLogin():
     customer_password = input()
 
     #this is where we check whether the creedentials work.
-    login_check = database_operations.loginAuth(customer_email, customer_password, "Customers", "customer_email")
+    login_check = database_operations.loginAuth(customer_email, customer_password, "Customers", "customer_email", "customer_password")
      
     if (login_check == 1):
         search_order.orderMenu()

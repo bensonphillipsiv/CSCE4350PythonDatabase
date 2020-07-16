@@ -45,6 +45,7 @@ def addNewEmployee(employee_name, employee_type, employee_store, employee_passwo
     # this function will add a user to the database
     sqlformula = "INSERT INTO Employees(employee_name, employee_type, store_id, employee_password) VALUES(%s, %s, %s, %s)"
     newemployee = (employee_name, employee_type, employee_store, employee_password)
+    
     mycursor.execute(sqlformula, newemployee)
     legodb.commit()
 
@@ -74,13 +75,13 @@ def updateItems(store_number, part_number_list, list_amounts, val):
 
 
 #this function will verify password and login, will return a 1 for login and 0 for failure
-def loginAuth(email, password, db_table, db_column):
+def loginAuth(email, password, db_table, db_column, password_cat):
 
-    email_check = columnCheck("Customers", "customer_email", email)
+    email_check = columnCheck(db_table, db_column, email)
     
     # this will verify whether the email exists in the database
     if (email_check == 1):
-        sqlFormula = "SELECT customer_password FROM " +db_table+ " WHERE " +db_column+ " = '" + email+ "'"
+        sqlFormula = "SELECT " +password_cat+" FROM " +db_table+ " WHERE " +db_column+ " = '" + email+ "'"
         mycursor.execute(sqlFormula)
         check = mycursor.fetchone()
         check_string = str(check[0])

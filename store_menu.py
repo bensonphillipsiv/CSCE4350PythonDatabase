@@ -18,7 +18,7 @@ def introStoreMenu():
     if choice == "1":
         employeeSignup()
     elif choice == "2":
-        employeeSignup()
+        employeeLogin()
     else:
         print("Please Enter a Correct Menu Choice...")
 
@@ -93,6 +93,21 @@ def employeeSignup():
     else:
         salesmanMenu()
 
+def employeeLogin():
+    #employee email
+    print("\nEmployee ID:")
+    employee_id = input()
+
+    print("\nPassword:")
+    employee_password = input()
+
+    #this is where we check whether the creedentials work.
+    login_check = database_operations.loginAuth(employee_id, employee_password, "Employees", "employee_id", "employee_password")
+     
+    if (login_check == 1):
+        search_order.orderMenu()
+    else:
+        employeeLogin()   
 
 # manager menu to update
 def managerMenu():
