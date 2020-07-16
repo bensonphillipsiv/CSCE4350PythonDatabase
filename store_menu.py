@@ -100,7 +100,6 @@ def orderMenu():
         print("Out of Stock on Items")
 
 
-
 def employeeMenu():
     menutext = "Employee Menu"
     table = [[menutext]]
