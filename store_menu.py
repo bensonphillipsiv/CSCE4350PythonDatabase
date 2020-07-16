@@ -42,7 +42,7 @@ def employeeSignup():
 
     if choice == "1":
         employee_type = "salesman"
-    elif choice == "2":
+    else:
         employee_type = "manager"
 
     # Employee Store
@@ -54,7 +54,7 @@ def employeeSignup():
 
     if choice == "1":
         employee_store = "newyork"
-    elif choice == "2":
+    else:
         employee_store = "losangles"
 
     # Employee password
@@ -125,11 +125,14 @@ def salesmanMenu():
 
     # menu options
     print("1.) Sell Items\n")
+    print("2.) Search Items\n")
     choice = input()
 
     if choice == "1":
         search_order.orderMenu()
         paymentMenu()
+    elif choice == "2":
+        search_order.searchMenu()
 
 
 def paymentMenu():
@@ -162,10 +165,37 @@ def paymentMenu():
     # Card Number
     print("Enter Card Number:\n")
     card_number = input()
-    
+
 
 def addInventory():
-    print("adding inventory")
+    print("What Store do you want to add inventory to?")
+    print("1.) New York\n")
+    print("2.) Los Angeles\n")
+    print("3.) Online\n")
+
+    choice = input()
+    if choice == "1":
+        store_id = "newyork"
+    elif choice == "2":
+        store_id = "losangeles"
+    elif choice == "3":
+        store_id = "online"
+
+    part_number = 'N/A'
+    part_number_list = []
+    list_amounts = []
+    while (part_number != '0'):
+        print("Enter the Part Number to update or Enter '0' to Complete Update:")
+        part_number = input()
+        if part_number == '0':
+            break
+        part_number_list.append(part_number)  # adding each part to a list
+
+        print("Enter the Amount to increase:")
+        amount = input()
+        list_amounts.append(amount)
+
+    database_operations.updateItems(store_id, part_number_list, list_amounts, 1)  # update database
 
 
 def addStore():
