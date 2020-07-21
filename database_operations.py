@@ -25,12 +25,15 @@ def searchItem(keyword):
     mycursor.execute(sqlFormula)
 
     result = mycursor.fetchall()
+    print("Bricks:")
     print(result)
+    print()
 
     sqlFormula = "SELECT brick_set_id, description FROM BrickSets WHERE description LIKE '%" + keyword + "%'"
     mycursor.execute(sqlFormula)
 
     result = mycursor.fetchall()
+    print("Brick Sets:")
     print(result)
 
 
