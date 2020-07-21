@@ -47,10 +47,10 @@ def columnCheck(db_table, db_column, db_item):
     return check[0] 
 
 
-def addNewCustomer(customer_name, customer_phone, customer_address, customer_email, customer_password):
+def addNewCustomer(customer_name, customer_phone, customer_address, customer_email, customer_password, customer_card):
     # this function will add a user to the database
-    sqlformula = "INSERT INTO Customers(customer_name, customer_phone, customer_address, customer_email, customer_password) VALUES(%s, %s, %s, %s, %s)"
-    newcustomer = (customer_name, customer_phone, customer_address, customer_email, customer_password)
+    sqlformula = "INSERT INTO Customers(customer_name, customer_phone, customer_address, customer_email, customer_password, customer_credit_card) VALUES(%s, %s, %s, %s, %s, %s)"
+    newcustomer = (customer_name, customer_phone, customer_address, customer_email, customer_password, customer_card)
     mycursor.execute(sqlformula, newcustomer)
     legodb.commit()
 

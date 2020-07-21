@@ -33,6 +33,10 @@ def customerSignup():
     print("\nEnter Your Name:")
     customer_name = input()
 
+    # User card input
+    print("\nEnter Your card 16 digit card number:")
+    customer_card = input()
+
     #Phone number
     print("\nEnter Your Phone Number:")
     customer_phone = input()
@@ -87,7 +91,7 @@ def customerSignup():
 
         print("\nCongrats, Passwords Matched!")
 
-    database_operations.addNewCustomer(customer_name, customer_phone, customer_address, customer_email, customer_password)
+    database_operations.addNewCustomer(customer_name, customer_phone, customer_address, customer_email, customer_password, customer_card)
 
     #place user data into database
     #let user know he successfully signed up!
