@@ -55,7 +55,7 @@ def employeeSignup():
     if choice == "1":
         employee_store = "newyork"
     else:
-        employee_store = "losangles"
+        employee_store = "losangeles"
 
     # Employee password
     print("\nEnter Password:")

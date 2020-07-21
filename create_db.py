@@ -59,10 +59,17 @@ mycursor.execute(
 
 # creating the BrickSet table
 mycursor.execute(
-    "CREATE TABLE BrickSets (brick_set_id INT, "
+    "CREATE TABLE BrickSets ("
+    "brick_set_id INT, "
     "description VARCHAR(255), "
     "PRIMARY KEY (brick_set_id))"
 )
+
+mycursor.execute("INSERT INTO BrickSets VALUES('12', 'yellow and blue brick')")
+mycursor.execute("INSERT INTO BrickSets VALUES('23', 'blue and red brick')")
+mycursor.execute("INSERT INTO BrickSets VALUES('345', 'red and green and blue brick')")
+mycursor.execute("INSERT INTO BrickSets VALUES('25', 'blue and purple brick')")
+mycursor.execute("INSERT INTO BrickSets VALUES('45', 'green and purple brick')")
 
 # creating the Bricks Table
 mycursor.execute(
@@ -72,6 +79,13 @@ mycursor.execute(
     "description VARCHAR(255), "
     "PRIMARY KEY (brick_id))"
 )
+
+mycursor.execute("INSERT INTO Bricks VALUES('1', '15', 'yellow brick')")
+mycursor.execute("INSERT INTO Bricks VALUES('2', '12', 'blue brick')")
+mycursor.execute("INSERT INTO Bricks VALUES('3', '30', 'red brick')")
+mycursor.execute("INSERT INTO Bricks VALUES('4', '54', 'green brick')")
+mycursor.execute("INSERT INTO Bricks VALUES('5', '7', 'purple brick')")
+
 
 # creating the Inventory Table
 mycursor.execute(
@@ -83,6 +97,25 @@ mycursor.execute(
     "FOREIGN KEY (brick_id) REFERENCES Bricks(brick_id))"
 )
 
+mycursor.execute("INSERT INTO Inventory VALUES('1', 'newyork', '15')")
+mycursor.execute("INSERT INTO Inventory VALUES('2', 'newyork', '0')")
+mycursor.execute("INSERT INTO Inventory VALUES('3', 'newyork', '20')")
+mycursor.execute("INSERT INTO Inventory VALUES('4', 'newyork', '5')")
+mycursor.execute("INSERT INTO Inventory VALUES('5', 'newyork', '50')")
+
+mycursor.execute("INSERT INTO Inventory VALUES('1', 'losangeles', '55')")
+mycursor.execute("INSERT INTO Inventory VALUES('2', 'losangeles', '15')")
+mycursor.execute("INSERT INTO Inventory VALUES('3', 'losangeles', '10')")
+mycursor.execute("INSERT INTO Inventory VALUES('4', 'losangeles', '25')")
+mycursor.execute("INSERT INTO Inventory VALUES('5', 'losangeles', '35')")
+
+mycursor.execute("INSERT INTO Inventory VALUES('1', 'online', '45')")
+mycursor.execute("INSERT INTO Inventory VALUES('2', 'online', '60')")
+mycursor.execute("INSERT INTO Inventory VALUES('3', 'online', '100')")
+mycursor.execute("INSERT INTO Inventory VALUES('4', 'online', '0')")
+mycursor.execute("INSERT INTO Inventory VALUES('5', 'online', '25')")
+
+
 # creating the BrickSetItems table
 mycursor.execute(
     "CREATE TABLE BrickSetItems ("
@@ -92,6 +125,27 @@ mycursor.execute(
     "FOREIGN KEY (brick_id) REFERENCES Bricks(brick_id), "
     "FOREIGN KEY (brick_set_id) REFERENCES BrickSets(brick_set_id))"
 )
+
+
+mycursor.execute("INSERT INTO BrickSetItems VALUES('12', '1', '2')")
+mycursor.execute("INSERT INTO BrickSetItems VALUES('12', '2', '3')")
+
+mycursor.execute("INSERT INTO BrickSetItems VALUES('23', '2', '1')")
+mycursor.execute("INSERT INTO BrickSetItems VALUES('23', '3', '5')")
+
+mycursor.execute("INSERT INTO BrickSetItems VALUES('345', '3', '1')")
+mycursor.execute("INSERT INTO BrickSetItems VALUES('345', '4', '4')")
+mycursor.execute("INSERT INTO BrickSetItems VALUES('345', '5', '2')")
+
+mycursor.execute("INSERT INTO BrickSetItems VALUES('25', '2', '1')")
+mycursor.execute("INSERT INTO BrickSetItems VALUES('25', '5', '6')")
+
+mycursor.execute("INSERT INTO BrickSetItems VALUES('45', '4', '3')")
+mycursor.execute("INSERT INTO BrickSetItems VALUES('45', '5', '4')")
+
+
+
+
 
 # creating the Orders Table
 mycursor.execute(
