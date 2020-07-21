@@ -60,7 +60,7 @@ mycursor.execute(
 # creating the BrickSet table
 mycursor.execute(
     "CREATE TABLE BrickSets ("
-    "brick_set_id INT, "
+    "brick_set_id VARCHAR(255), "
     "description VARCHAR(255), "
     "PRIMARY KEY (brick_set_id))"
 )
@@ -119,7 +119,7 @@ mycursor.execute("INSERT INTO Inventory VALUES('5', 'online', '25')")
 # creating the BrickSetItems table
 mycursor.execute(
     "CREATE TABLE BrickSetItems ("
-    "brick_set_id INT, "
+    "brick_set_id VARCHAR(255), "
     "brick_id VARCHAR(255), "
     "quantity INT, "
     "FOREIGN KEY (brick_id) REFERENCES Bricks(brick_id), "
@@ -163,7 +163,7 @@ mycursor.execute(
     "CREATE TABLE OrderItems ("
     "order_id INT, "
     "brick_id VARCHAR(255), "
-    "brick_set_id INT, "
+    "brick_set_id VARCHAR(255), "
     "brick_quantity INT, "
     "brick_set_quantity INT, "
     "FOREIGN KEY (order_id) REFERENCES Orders(order_id), "
