@@ -144,9 +144,6 @@ mycursor.execute("INSERT INTO BrickSetItems VALUES('45', '4', '3')")
 mycursor.execute("INSERT INTO BrickSetItems VALUES('45', '5', '4')")
 
 
-
-
-
 # creating the Orders Table
 mycursor.execute(
     "CREATE TABLE Orders ("

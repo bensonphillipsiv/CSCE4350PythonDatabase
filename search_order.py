@@ -50,3 +50,5 @@ def searchMenu():
     # menu options
     print("Enter a Keyword to Search for Sets or Bricks:\n")
     keyword = input()
+
+    database_operations.searchItem(keyword)

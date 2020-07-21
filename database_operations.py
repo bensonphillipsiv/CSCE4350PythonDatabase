@@ -20,6 +20,20 @@ mycursor = legodb.cursor()
 #False = It does not exist
 
 
+def searchItem(keyword):
+    sqlFormula = "SELECT brick_id, brick_price, description FROM Bricks WHERE description LIKE '%" + keyword + "%'"
+    mycursor.execute(sqlFormula)
+
+    result = mycursor.fetchall()
+    print(result)
+
+    sqlFormula = "SELECT brick_set_id, description FROM BrickSets WHERE description LIKE '%" + keyword + "%'"
+    mycursor.execute(sqlFormula)
+
+    result = mycursor.fetchall()
+    print(result)
+
+
 def columnCheck(db_table, db_column, db_item):
     #print("Checking db_item: ", db_item)
     sqlFormula = "SELECT EXISTS(SELECT * from " +db_table+" WHERE( " +db_column+ "='"+db_item+"'))"
