@@ -2,6 +2,8 @@ from tabulate import tabulate
 import database_operations
 import search_order
 
+store_id = "N/A"
+
 
 def introStoreMenu():
     menutext = "Employee Login/ Signup"
@@ -52,10 +54,11 @@ def employeeSignup():
 
     choice = input()
 
+    global store_id
     if choice == "1":
-        employee_store = "newyork"
+        store_id = "newyork"
     else:
-        employee_store = "losangeles"
+        store_id = "losangeles"
 
     # Employee password
     print("\nEnter Password:")
@@ -82,7 +85,7 @@ def employeeSignup():
 
         print("\nCongrats, Passwords Matched!")
 
-    database_operations.addNewEmployee(employee_name, employee_type, employee_store, employee_password)
+    database_operations.addNewEmployee(employee_name, employee_type, store_id, employee_password)
 
     # place user data into database
     # let user know he successfully signed up!
@@ -101,7 +104,7 @@ def employeeLogin():
     print("\nPassword:")
     employee_password = input()
 
-    #this is where we check whether the creedentials work.
+    #this is where we check whether the credentials work.
     login_check = database_operations.loginAuth(employee_id, employee_password, "Employees", "employee_id", "employee_password")
      
     if (login_check == 1):
@@ -143,11 +146,12 @@ def salesmanMenu():
     print("2.) Search Items\n")
     choice = input()
 
+    global store_id
     if choice == "1":
-        search_order.orderMenu()
+        search_order.orderMenu(store_id)
         paymentMenu()
     elif choice == "2":
-        search_order.searchMenu()
+        search_order.searchMenu(store_id)
 
 
 def paymentMenu():
@@ -189,6 +193,7 @@ def addInventory():
     print("3.) Online\n")
 
     choice = input()
+    global store_id
     if choice == "1":
         store_id = "newyork"
     elif choice == "2":

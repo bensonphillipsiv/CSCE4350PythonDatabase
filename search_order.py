@@ -1,6 +1,8 @@
 from tabulate import tabulate
 import database_operations
 
+store = "N/A"
+
 
 def orderMenu():
     menutext = "Order Menu"
@@ -41,7 +43,7 @@ def orderMenu():
         print("Out of Stock on Items")
 
 
-def searchMenu():
+def searchMenu(store_id):
     menutext = "Search Menu"
     table = [[menutext]]
     output = tabulate(table, tablefmt='grid')
@@ -51,4 +53,4 @@ def searchMenu():
     print("Enter a Keyword to Search for Sets or Bricks:\n")
     keyword = input()
 
-    database_operations.searchItem(keyword)
+    database_operations.searchItem(keyword, store_id)
