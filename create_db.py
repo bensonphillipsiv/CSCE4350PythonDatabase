@@ -170,3 +170,16 @@ mycursor.execute(
     "FOREIGN KEY (brick_id) REFERENCES Bricks(brick_id), "
     "FOREIGN KEY (brick_set_id) REFERENCES BrickSets(brick_set_id))"
 )
+
+# creating the report table
+mycursor.execute(
+    "CREATE TABLE Reports ("
+    "report_id INT NOT NULL AUTO_INCREMENT, "
+    "report_time DATETIME NULL, "
+    "employee_id INT, "
+    "time_in_out DATETIME NULL, "
+    "type ENUM('in', 'out') NULL, "
+    "customer_order INT, "
+    "FOREIGN KEY (employee_id) REFERENCES Employees(employee_id), "
+    "PRIMARY KEY (report_id))"
+)
