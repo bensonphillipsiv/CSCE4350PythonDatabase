@@ -116,6 +116,16 @@ def addNewEmployee(employee_name, employee_type, employee_store, employee_passwo
     mycursor.execute(sqlformula, newemployee)
     legodb.commit()
 
+    #print("Checking db_item: ", db_item)
+    sqlFormula2 = "SELECT max(employee_id) from employees"
+    
+    #print(sqlFormula)
+    mycursor.execute(sqlFormula2)
+    
+    check = mycursor.fetchone()
+    #Qprint(check) 
+    return check[0]
+
 
 def checkItems(store_id, part_number_list, list_amounts):
     for i in range(len(part_number_list)):
@@ -167,3 +177,40 @@ def loginAuth(email, password, db_table, db_column, password_cat):
         print ("\nUsername or Password Failed! Please Try Again.\n")
         return 0
 
+#this function will either clock someone in or out and calculate hours worked per shift.
+def clock_in_out(employee_id, clock_type):
+
+    if (clock_type == "in"):
+        # this function will clock a user in
+        sqlformula = "INSERT INTO Reports(employee_id, time_in_out, type) VALUES(%s, now(), %s)"
+        newcustomer = (employee_id, clock_type)
+        mycursor.execute(sqlformula, newcustomer)
+        legodb.commit()
+    elif (clock_type == "out"):
+        # this function will find the latest time an employee has clocked in and calculate time in last shift cycle
+        
+        string_employee_id = str(employee_id)
+        sqlformula1="SELECT time_in_out FROM reports WHERE (time_in_out in (select max(time_in_out) from reports GROUP BY employee_id) AND employee_id = '" + string_employee_id +"')"
+        insert = (employee_id)
+        mycursor.execute(sqlformula1)
+        j = mycursor.fetchone()
+        latest_time = j[0]
+        print("This employee clocked in at: ", latest_time)
+
+        string_latest_time = str(latest_time)
+        print(string_latest_time)
+
+        sqlformula2 = "Select timestampdiff(MINUTE, '"+ string_latest_time +"', now())"
+
+
+        mycursor.execute(sqlformula2)
+        k = mycursor.fetchone()
+        time_diff = k[0]
+        string_time_diff = str(time_diff)
+
+        sqlformula = "INSERT INTO Reports(employee_id, time_in_out, type, time_difference) VALUES(%s, now(), %s, '" + string_time_diff + "')"
+        newcustomer = (employee_id, clock_type)
+        mycursor.execute(sqlformula, newcustomer)
+        legodb.commit()
+        
+    

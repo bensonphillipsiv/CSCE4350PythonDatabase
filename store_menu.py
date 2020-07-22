@@ -85,16 +85,12 @@ def employeeSignup():
 
         print("\nCongrats, Passwords Matched!")
 
-    database_operations.addNewEmployee(employee_name, employee_type, store_id, employee_password)
+    em_id = str(database_operations.addNewEmployee(employee_name, employee_type, store_id, employee_password))  
 
     # place user data into database
     # let user know he successfully signed up!
-    print("\nWoohoo " + employee_name + ", You Have Successfully Created an Account!")
-
-    if employee_type == "manager":
-        managerMenu()
-    else:
-        salesmanMenu()
+    print("\nWoohoo " + employee_name + ", You Have Successfully Created an Account! Your Employee ID is: " + em_id + "\nPlease Login to verify your account.\n")
+    employeeLogin()
 
 def employeeLogin():
     #employee email
@@ -110,17 +106,20 @@ def employeeLogin():
     if (login_check == 1):
 
         employee_rank = database_operations.employee_rank_check("Employees", "employee_id", employee_id)
-        print(employee_rank)
+        #print(employee_rank)
         if (employee_rank == "salesman"):
+
+            database_operations.clock_in_out(employee_id, "in")
             salesmanMenu()
         elif (employee_rank == "manager"):
-            managerMenu()   
+            database_operations.clock_in_out(employee_id, "in")
+            managerMenu(employee_id)   
     else:
         employeeLogin()   
 
 
 # manager menu to update
-def managerMenu():
+def managerMenu(employee_id):
     menutext = "Manager Menu"
     table = [[menutext]]
     output = tabulate(table, tablefmt='grid')
@@ -129,7 +128,8 @@ def managerMenu():
     # menu options
     print("1.) Add Inventory\n")
     print("2.) Add Store\n")
-    print("3.) Generate Report\n")
+    print("3.) Generate Report\n\n")
+    print("4.) Clock Out\n")
     choice = input()
 
     if choice == "1":
@@ -138,6 +138,8 @@ def managerMenu():
         addStore()
     elif choice == "3":
         generateReport()
+    elif choice == "4":
+        database_operations.clock_in_out(employee_id, "out")
     else:
         print("Please Enter a Correct Menu Choice...")
 
@@ -253,7 +255,7 @@ def generateReport():
             print("3.) Monthly Report\n")
             choice = input()
             
-            
+
 
         else:
             print("\nINVALID EMPLOYEE ID! \n")

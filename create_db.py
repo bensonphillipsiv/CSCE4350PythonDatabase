@@ -179,6 +179,7 @@ mycursor.execute(
     "employee_id INT, "
     "time_in_out DATETIME NULL, "
     "type ENUM('in', 'out') NULL, "
+    "time_difference int, "
     "customer_order INT, "
     "FOREIGN KEY (employee_id) REFERENCES Employees(employee_id), "
     "PRIMARY KEY (report_id))"
