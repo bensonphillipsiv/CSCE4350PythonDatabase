@@ -91,6 +91,17 @@ def columnCheck(db_table, db_column, db_item):
     
     return check[0] 
 
+def employee_rank_check(db_table, db_column, db_item):
+    #print("Checking db_item: ", db_item)
+    sqlFormula = "SELECT employee_type from " +db_table+" WHERE( " +db_column+ "='"+db_item+"')"
+    
+    #print(sqlFormula)
+    mycursor.execute(sqlFormula)
+    
+    check = mycursor.fetchone()
+    #print(check) 
+    return check[0]
+
 
 def addNewCustomer(customer_name, customer_phone, customer_address, customer_email, customer_password, customer_card):
     # this function will add a user to the database

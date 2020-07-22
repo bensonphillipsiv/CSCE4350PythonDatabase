@@ -108,7 +108,13 @@ def employeeLogin():
     login_check = database_operations.loginAuth(employee_id, employee_password, "Employees", "employee_id", "employee_password")
      
     if (login_check == 1):
-        search_order.orderMenu()
+
+        employee_rank = database_operations.employee_rank_check("Employees", "employee_id", employee_id)
+        print(employee_rank)
+        if (employee_rank == "salesman"):
+            salesmanMenu()
+        elif (employee_rank == "manager"):
+            managerMenu()   
     else:
         employeeLogin()   
 
@@ -130,7 +136,7 @@ def managerMenu():
     elif choice == "2":
         addStore()
     elif choice == "3":
-        print("beep... boop... report generated")
+        generateReport()
     else:
         print("Please Enter a Correct Menu Choice...")
 
@@ -220,3 +226,34 @@ def addInventory():
 
 def addStore():
     print("adding a new store")
+
+def generateReport():
+    menutext = "Report Generator"
+    table = [[menutext]]
+    output = tabulate(table, tablefmt='grid')
+    print(output)
+
+    # menu options
+    print("1.) Generate Report For The Store\n")
+    print("2.) Generate Report For an Employee\n")
+    choice = input()
+
+    if choice == "1":
+        print("DEV IS STILL WORKING ON THIS FEATURE")
+    elif choice == "2":
+        print("Which Employee Would You Like To Generate a Report On?\n(Please Type in Employee ID)\n")
+        employee_input = input()
+        employee_check = database_operations.columnCheck("employees", "employee_id", employee_input)
+        #print(employee_check)
+        if (employee_check == 1):
+            print("\n What kind of report would you like to generate?")
+            print("1.) Daily Report\n")
+            print("2.) Weekly Report\n")
+            print("3.) Monthly Report\n")
+            choice = input()
+            
+            
+
+        else:
+            print("\nINVALID EMPLOYEE ID! \n")
+            generateReport() 
