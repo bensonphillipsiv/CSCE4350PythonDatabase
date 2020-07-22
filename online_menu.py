@@ -97,6 +97,8 @@ def customerSignup():
     #let user know he successfully signed up!
     print("\nWoohoo " + customer_name + ", You Have Succesfully Created an Account!")
 
+    loggedInMenu()
+
 #this function will login in the customer
 def customerLogin():
     #customer email
@@ -110,8 +112,23 @@ def customerLogin():
     login_check = database_operations.loginAuth(customer_email, customer_password, "Customers", "customer_email", "customer_password")
      
     if (login_check == 1):
-        search_order.orderMenu()
+        loggedInMenu()
     else:
         customerLogin()
     
 
+def loggedInMenu():
+    menutext = "Customer Menu"
+    table = [[menutext]]
+    output = tabulate(table, tablefmt='grid')
+    print(output)
+
+    # menu options
+    print("1.) Buy Items\n")
+    print("2.) Search Items\n")
+    choice = input()
+
+    if choice == "1":
+        search_order.orderMenu("online")
+    elif choice == "2":
+        search_order.searchMenu("online")

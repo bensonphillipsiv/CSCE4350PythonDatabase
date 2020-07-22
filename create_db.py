@@ -169,7 +169,6 @@ mycursor.execute(
     "FOREIGN KEY (order_id) REFERENCES Orders(order_id), "
     "FOREIGN KEY (brick_id) REFERENCES Bricks(brick_id), "
     "FOREIGN KEY (brick_set_id) REFERENCES BrickSets(brick_set_id))"
-
 )
 
 # creating the report table

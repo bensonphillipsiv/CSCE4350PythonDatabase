@@ -32,7 +32,6 @@ def searchItem(keyword, store_id):
     for x in result:
         print("Brick ID: " + x[0] + "\t\tPrice: " + str(x[1]) + "\t\tStock: " + str(x[2]) + "\t\tDescription: " + x[3])
 
-
     # calculating the price of the brick sets based on the individual bricks
     sqlFormula = "SELECT BrickSetItems.brick_set_id, Bricks.brick_id, Bricks.brick_price, BrickSetItems.quantity FROM BrickSetItems INNER JOIN Bricks ON BrickSetItems.brick_id = Bricks.brick_id"
     mycursor.execute(sqlFormula)
@@ -48,7 +47,7 @@ def searchItem(keyword, store_id):
 
             set_prices[item[0]] = price
 
-    # calculating the current inventory of brick sets based on current stock of bricks
+    # calculating the current inventory of brick sets based on current stock of bricks in the store
     sqlFormula = "SELECT BrickSets.brick_set_id, Inventory.brick_id, quantity, inventory_quantity, BrickSets.description FROM BrickSets INNER JOIN BrickSetItems ON BrickSets.brick_set_id = BrickSetItems.brick_set_id INNER JOIN Inventory ON Inventory.brick_id = BrickSetItems.brick_id WHERE store_id = '" + store_id + "'"
     mycursor.execute(sqlFormula)
     result = mycursor.fetchall()
@@ -77,11 +76,9 @@ def searchItem(keyword, store_id):
         print("BrickSet ID: " + x[0] + "\t\tPrice: " + str(price) + "\t\tStock: " + str(stock) + "\t\tDescription: " + x[1])
 
 
-
-
 def columnCheck(db_table, db_column, db_item):
     #print("Checking db_item: ", db_item)
-    sqlFormula = "SELECT EXISTS(SELECT * from " +db_table+" WHERE( " +db_column+ "='"+db_item+"'))"
+    sqlFormula = "SELECT EXISTS(SELECT * from " + db_table + " WHERE( " + db_column + "='" + db_item + "'))"
     
     #print(sqlFormula)
     mycursor.execute(sqlFormula)
@@ -159,7 +156,7 @@ def loginAuth(email, password, db_table, db_column, password_cat):
         
         # this will verify whether the submitted password matches the one the pertaining to the account
         if (check_string == password_string):
-            print ("Login Succesful!\n\n\n")
+            print("Login Succesful!\n\n\n")
             return 1
 
         else:
@@ -170,6 +167,3 @@ def loginAuth(email, password, db_table, db_column, password_cat):
         print ("\nUsername or Password Failed! Please Try Again.\n")
         return 0
 
-
-
-    #return check[0] 
