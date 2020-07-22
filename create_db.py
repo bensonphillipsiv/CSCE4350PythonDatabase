@@ -98,7 +98,7 @@ mycursor.execute(
 )
 
 mycursor.execute("INSERT INTO Inventory VALUES('1', 'newyork', '15')")
-mycursor.execute("INSERT INTO Inventory VALUES('2', 'newyork', '0')")
+mycursor.execute("INSERT INTO Inventory VALUES('2', 'newyork', '15')")
 mycursor.execute("INSERT INTO Inventory VALUES('3', 'newyork', '20')")
 mycursor.execute("INSERT INTO Inventory VALUES('4', 'newyork', '5')")
 mycursor.execute("INSERT INTO Inventory VALUES('5', 'newyork', '50')")

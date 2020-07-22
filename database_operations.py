@@ -1,5 +1,5 @@
 import mysql.connector
-
+import math
 
 legodb = mysql.connector.connect(
     host="localhost",
@@ -20,21 +20,63 @@ mycursor = legodb.cursor()
 #False = It does not exist
 
 
-def searchItem(keyword):
-    sqlFormula = "SELECT brick_id, brick_price, description FROM Bricks WHERE description LIKE '%" + keyword + "%'"
+def searchItem(keyword, store_id):
+
+    print("Items from " + store_id + " store:\n")
+    sqlFormula = "SELECT Bricks.brick_id, Bricks.brick_price, Inventory.inventory_quantity, Bricks.description FROM Bricks INNER JOIN Inventory ON Bricks.brick_id = Inventory.brick_id WHERE description LIKE '%" + keyword + "%' AND store_id = '" + store_id + "'"
     mycursor.execute(sqlFormula)
 
     result = mycursor.fetchall()
     print("Bricks:")
-    print(result)
-    print()
 
-    sqlFormula = "SELECT brick_set_id, description FROM BrickSets WHERE description LIKE '%" + keyword + "%'"
+    for x in result:
+        print("Brick ID: " + x[0] + "\t\tPrice: " + str(x[1]) + "\t\tStock: " + str(x[2]) + "\t\tDescription: " + x[3])
+
+
+    # calculating the price of the brick sets based on the individual bricks
+    sqlFormula = "SELECT BrickSetItems.brick_set_id, Bricks.brick_id, Bricks.brick_price, BrickSetItems.quantity FROM BrickSetItems INNER JOIN Bricks ON BrickSetItems.brick_id = Bricks.brick_id"
     mycursor.execute(sqlFormula)
-
     result = mycursor.fetchall()
-    print("Brick Sets:")
-    print(result)
+
+    set_prices = {}
+    for item in result:
+        if item[0] not in set_prices:
+            price = 0
+            for item2 in result:
+                if item[0] == item2[0]:
+                    price += item2[2] * item2[3]
+
+            set_prices[item[0]] = price
+
+    # calculating the current inventory of brick sets based on current stock of bricks
+    sqlFormula = "SELECT BrickSets.brick_set_id, Inventory.brick_id, quantity, inventory_quantity, BrickSets.description FROM BrickSets INNER JOIN BrickSetItems ON BrickSets.brick_set_id = BrickSetItems.brick_set_id INNER JOIN Inventory ON Inventory.brick_id = BrickSetItems.brick_id WHERE store_id = '" + store_id + "'"
+    mycursor.execute(sqlFormula)
+    result = mycursor.fetchall()
+
+    set_stocks = {}
+    for item in result:
+        if item[0] not in set_stocks:
+            max_stock = math.floor(item[3]/item[2])
+            for item2 in result:
+                if item[0] == item2[0]:
+                    stock = math.floor(item2[3]/item2[2])
+                    if stock < max_stock:
+                        max_stock = stock
+
+            set_stocks[item[0]] = max_stock
+
+    # joining all the brick data together
+    sqlFormula = "SELECT BrickSets.brick_set_id, BrickSets.description FROM BrickSets WHERE description LIKE '%" + keyword + "%'"
+    mycursor.execute(sqlFormula)
+    result = mycursor.fetchall()
+
+    print("\nBrick Sets:")
+    for x in result:
+        price = set_prices.get(x[0])
+        stock = set_stocks.get(x[0])
+        print("BrickSet ID: " + x[0] + "\t\tPrice: " + str(price) + "\t\tStock: " + str(stock) + "\t\tDescription: " + x[1])
+
+
 
 
 def columnCheck(db_table, db_column, db_item):
