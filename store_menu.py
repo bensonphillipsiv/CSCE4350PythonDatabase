@@ -113,7 +113,7 @@ def employeeLogin():
         if (employee_rank == "salesman"):
 
             database_operations.clock_in_out(employee_id, "in")
-            salesmanMenu()
+            salesmanMenu(employee_id)
         elif (employee_rank == "manager"):
             database_operations.clock_in_out(employee_id, "in")
             managerMenu(employee_id)   
@@ -147,7 +147,7 @@ def managerMenu(employee_id):
         print("Please Enter a Correct Menu Choice...")
 
 
-def salesmanMenu():
+def salesmanMenu(employee_id):
     menutext = "Salesman Menu"
     table = [[menutext]]
     output = tabulate(table, tablefmt='grid')
@@ -156,6 +156,7 @@ def salesmanMenu():
     # menu options
     print("1.) Sell Items\n")
     print("2.) Search Items\n")
+    print("3.) Clock Out\n")
     choice = input()
 
     global store_id
@@ -164,6 +165,8 @@ def salesmanMenu():
         paymentMenu()
     elif choice == "2":
         search_order.searchMenu(store_id)
+    elif choice == "3":
+        database_operations.clock_in_out(employee_id, "out")
 
 
 def paymentMenu():
@@ -259,6 +262,12 @@ def generateReport():
             print("3.) Monthly Report\n")
             choice = input()
 
+            if (employee_check==1):
+                database_operations.indEmployeeReport("daily", employee_input)
+            elif (employee_check==2):
+                print("test")
+            elif (employee_check==3):
+                print("test")
         else:
             print("\nINVALID EMPLOYEE ID! \n")
             generateReport() 
