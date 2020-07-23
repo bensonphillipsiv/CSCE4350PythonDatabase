@@ -79,24 +79,22 @@ def searchItem(keyword, store_id):
 def columnCheck(db_table, db_column, db_item):
     #print("Checking db_item: ", db_item)
     sqlFormula = "SELECT EXISTS(SELECT * from " + db_table + " WHERE( " + db_column + "='" + db_item + "'))"
-    
+
     #print(sqlFormula)
     mycursor.execute(sqlFormula)
-     
+
     check = mycursor.fetchone()
     #legodb.commit()
-    
-    return check[0] 
+
+    return check[0]
+
 
 def employee_rank_check(db_table, db_column, db_item):
-    #print("Checking db_item: ", db_item)
     sqlFormula = "SELECT employee_type from " +db_table+" WHERE( " +db_column+ "='"+db_item+"')"
-    
-    #print(sqlFormula)
+
     mycursor.execute(sqlFormula)
-    
+
     check = mycursor.fetchone()
-    #print(check) 
     return check[0]
 
 
@@ -112,50 +110,118 @@ def addNewEmployee(employee_name, employee_type, employee_store, employee_passwo
     # this function will add a user to the database
     sqlformula = "INSERT INTO Employees(employee_name, employee_type, store_id, employee_password) VALUES(%s, %s, %s, %s)"
     newemployee = (employee_name, employee_type, employee_store, employee_password)
-    
+
     mycursor.execute(sqlformula, newemployee)
     legodb.commit()
 
-    #print("Checking db_item: ", db_item)
     sqlFormula2 = "SELECT max(employee_id) from employees"
-    
-    #print(sqlFormula)
+
     mycursor.execute(sqlFormula2)
-    
+
     check = mycursor.fetchone()
-    #Qprint(check) 
     return check[0]
 
 
+def checkStore(employee_id):
+    # check what store an employee is at
+    sqlFormula = "SELECT store_id FROM employees WHERE employee_id = " + employee_id
+    mycursor.execute(sqlFormula)
+    result = mycursor.fetchone()
+
+    return result[0]
+
+
 def checkItems(store_id, part_number_list, list_amounts):
+    # checking the current inventory of brick sets
+    sqlFormula = "SELECT brick_id, inventory_quantity FROM Inventory WHERE store_id = '" + store_id + "'"
+    mycursor.execute(sqlFormula)
+    result = mycursor.fetchall()
+
     for i in range(len(part_number_list)):
-        # check each part number in the store_number provided
-        part_number_list[i]
-        list_amounts[i]
+        for brick in result:
+            if part_number_list[i] == brick[0]:
+                if int(list_amounts[i]) > brick[1]:
+                    print("**Items not in Stock**")
+                    return False
 
-        items = True
-        if items:
-            return True
+    # calculating the current inventory of brick sets based on current stock of bricks in the store
+    sqlFormula = "SELECT BrickSets.brick_set_id, Inventory.brick_id, quantity, inventory_quantity, BrickSets.description FROM BrickSets INNER JOIN BrickSetItems ON BrickSets.brick_set_id = BrickSetItems.brick_set_id INNER JOIN Inventory ON Inventory.brick_id = BrickSetItems.brick_id WHERE store_id = '" + store_id + "'"
+    mycursor.execute(sqlFormula)
+    result = mycursor.fetchall()
+
+    set_stocks = {}
+    for item in result:
+        if item[0] not in set_stocks:
+            max_stock = math.floor(item[3] / item[2])
+            for item2 in result:
+                if item[0] == item2[0]:
+                    stock = math.floor(item2[3] / item2[2])
+                    if stock < max_stock:
+                        max_stock = stock
+
+            set_stocks[item[0]] = max_stock
+
+    for i in range(len(part_number_list)):
+        if part_number_list[i] in set_stocks:
+            if int(list_amounts[i]) > set_stocks.get(part_number_list[i]):
+                print("**Items not in Stock**")
+                return False
+
+    print("**Items in Stock**")
+    return True
+
+
+def updateItems(store_id, part_number_list, list_amounts, val):
+    new_part_number_list = []
+    new_list_amounts = []
+
+    # checking the current inventory of brick sets
+    sqlFormula = "SELECT brick_id, inventory_quantity FROM Inventory WHERE store_id = '" + store_id + "'"
+    mycursor.execute(sqlFormula)
+    result = mycursor.fetchall()
+
+    # adding the singular bricks to a list
+    for k in range(len(part_number_list)):
+        for brick in result:
+            if part_number_list[k] == brick[0]:
+                new_part_number_list.append(part_number_list[k])
+                new_list_amounts.append(list_amounts[k])
+
+    # calculating brick amounts for brick set
+    sqlFormula = "SELECT brick_set_id, brick_id, quantity FROM BrickSetItems"
+    mycursor.execute(sqlFormula)
+    result = mycursor.fetchall()
+
+
+    for i in range(len(part_number_list)):
+        for brickset in result:
+            if part_number_list[i] == brickset[0]:
+                if brickset[1] in new_part_number_list:
+                    add = int(list_amounts[i]) * brickset[2]
+                    index2 = new_part_number_list.index(brickset[1])
+                    new_list_amounts[index2] = str(int(new_list_amounts[index2]) + add)
+                else:
+                    new_part_number_list.append(brickset[1])
+                    add = int(list_amounts[i]) * brickset[2]
+                    new_list_amounts.append(str(add))
+
+    for j in range(len(new_part_number_list)):
+        if val == -1:
+            sqlFormula = "UPDATE Inventory SET inventory_quantity = inventory_quantity - " + new_list_amounts[j] + " WHERE brick_id = '" + new_part_number_list[j] + "'"
         else:
-            return False
+            sqlFormula = "UPDATE Inventory SET inventory_quantity = inventory_quantity + " + new_list_amounts[j] + " WHERE brick_id = '" + new_part_number_list[j] + "'"
+        mycursor.execute(sqlFormula)
+        legodb.commit()
 
+    print("Updated Database")
 
-def updateItems(store_number, part_number_list, list_amounts, val):
-    if val == -1:
-        # subtract amounts from database to update
-        print("Updated Database")
-    elif val == 1:
-        # add amounts from database to update
-        print("Updated Database")
-    else:
-        print("error adding or subtracting to update DB")
 
 
 #this function will verify password and login, will return a 1 for login and 0 for failure
 def loginAuth(email, password, db_table, db_column, password_cat):
 
     email_check = columnCheck(db_table, db_column, email)
-    
+
     # this will verify whether the email exists in the database
     if (email_check == 1):
         sqlFormula = "SELECT " +password_cat+" FROM " +db_table+ " WHERE " +db_column+ " = '" + email+ "'"
@@ -163,7 +229,7 @@ def loginAuth(email, password, db_table, db_column, password_cat):
         check = mycursor.fetchone()
         check_string = str(check[0])
         password_string = str(password)
-        
+
         # this will verify whether the submitted password matches the one the pertaining to the account
         if (check_string == password_string):
             print("Login Succesful!\n\n\n")
@@ -177,6 +243,7 @@ def loginAuth(email, password, db_table, db_column, password_cat):
         print ("\nUsername or Password Failed! Please Try Again.\n")
         return 0
 
+
 #this function will either clock someone in or out and calculate hours worked per shift.
 def clock_in_out(employee_id, clock_type):
 
@@ -188,7 +255,7 @@ def clock_in_out(employee_id, clock_type):
         legodb.commit()
     elif (clock_type == "out"):
         # this function will find the latest time an employee has clocked in and calculate time in last shift cycle
-        
+
         string_employee_id = str(employee_id)
         sqlformula1="SELECT time_in_out FROM reports WHERE (time_in_out in (select max(time_in_out) from reports GROUP BY employee_id) AND employee_id = '" + string_employee_id +"')"
         insert = (employee_id)
@@ -212,5 +279,5 @@ def clock_in_out(employee_id, clock_type):
         newcustomer = (employee_id, clock_type)
         mycursor.execute(sqlformula, newcustomer)
         legodb.commit()
-        
-    
+
+
