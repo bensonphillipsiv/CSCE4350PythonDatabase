@@ -3,7 +3,7 @@ import database_operations
 import search_order
 
 store_id = "N/A"
-
+global_employee_id = "N/A"
 
 def introStoreMenu():
     menutext = "Employee Login/ Signup"
@@ -123,6 +123,8 @@ def employeeLogin():
 
 # manager menu to update
 def managerMenu(employee_id):
+    global global_employee_id 
+    global_employee_id= (employee_id)
     menutext = "Manager Menu"
     table = [[menutext]]
     output = tabulate(table, tablefmt='grid')
@@ -145,6 +147,7 @@ def managerMenu(employee_id):
         database_operations.clock_in_out(employee_id, "out")
     else:
         print("Please Enter a Correct Menu Choice...")
+        managerMenu(employee_id)
 
 
 def salesmanMenu(employee_id):
@@ -259,18 +262,21 @@ def generateReport():
         employee_check = database_operations.columnCheck("employees", "employee_id", employee_input)
         #print(employee_check)
         if (employee_check == 1):
-            print("\n What kind of report would you like to generate?")
+            print("\nWhat kind of report would you like to generate?")
             print("1.) Daily Report\n")
             print("2.) Weekly Report\n")
             print("3.) Monthly Report\n")
-            choice = input()
+            choice1 = input()
 
-            if (employee_check == 1):
+            if (choice1=="1"):
                 database_operations.indEmployeeReport("daily", employee_input)
-            elif (employee_check == 2):
-                print("test")
-            elif (employee_check == 3):
-                print("test")
+            elif (choice1=="2"):
+                database_operations.indEmployeeReport("weekly", employee_input)
+            elif (choice1=="3"):
+                database_operations.indEmployeeReport("monthly", employee_input)
+            else:
+                print("Invalid choice!")
+                generateReport()
         else:
             print("\nINVALID EMPLOYEE ID! \n")
             generateReport() 

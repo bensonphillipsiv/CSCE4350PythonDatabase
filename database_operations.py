@@ -1,5 +1,6 @@
 import mysql.connector
 import math
+import store_menu
 
 legodb = mysql.connector.connect(
     host="localhost",
@@ -296,7 +297,7 @@ def indEmployeeReport(period, employee_id):
 
         #return check[0]
 
-    elif (perdiod == "weekly"):
+    elif (period == "weekly"):
         # this function will return hours worked by employee and other information 
         sqlformula1 = "Select sum(time_difference) from reports where (time_in_out between date_add(now(), interval -7 day) and now())  AND employee_id = '"+ employee_id +"'"
         
@@ -307,7 +308,7 @@ def indEmployeeReport(period, employee_id):
         check = mycursor.fetchone()
         print("\nHours Worked This Week: ", check[0]) 
         
-    elif (perdiod == "monthly"):
+    elif (period == "monthly"):
         # this function will return hours worked by employee and other information 
         sqlformula1 = "Select sum(time_difference) from reports where (time_in_out between date_add(now(), interval -30 day) and now())  AND employee_id = '"+ employee_id +"'"
         
@@ -321,3 +322,5 @@ def indEmployeeReport(period, employee_id):
     #Select sum(time_difference) from reports where DATE(time_in_out)= date_sub(curdate(), interval 1 day) AND employee_id = '1'
 
     #Select sum(time_difference) from reports where DATE(time_in_out)= date_sub(curdate(), interval 10 day) AND employee_id = '1'
+    store_menu.managerMenu(store_menu.global_employee_id)
+    print("\n\n\n") 
