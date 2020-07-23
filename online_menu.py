@@ -2,6 +2,7 @@ from tabulate import tabulate
 import database_operations
 import search_order
 
+
 # this menu will welcome user as well as determine whether they need to login or sign up.
 def introOnlineMenu():
     menutext = "Welcome to the Online Lego store. \nPlease Signup/Login.\n(Please Select A Number Choice Below)"
@@ -98,6 +99,7 @@ def customerSignup():
     print("\nWoohoo " + customer_name + ", You Have Succesfully Created an Account!")
 
     loggedInMenu()
+
 
 #this function will login in the customer
 def customerLogin():
