@@ -216,7 +216,6 @@ def updateItems(store_id, part_number_list, list_amounts, val):
     print("Updated Database")
 
 
-
 #this function will verify password and login, will return a 1 for login and 0 for failure
 def loginAuth(email, password, db_table, db_column, password_cat):
 
