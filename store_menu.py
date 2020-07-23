@@ -234,7 +234,10 @@ def addInventory():
 
 
 def addStore():
-    print("adding a new store")
+    print("Enter the store name: ")
+    store_id = input()
+
+    database_operations.addStore()
 
 
 def generateReport():
@@ -262,11 +265,11 @@ def generateReport():
             print("3.) Monthly Report\n")
             choice = input()
 
-            if (employee_check==1):
+            if (employee_check == 1):
                 database_operations.indEmployeeReport("daily", employee_input)
-            elif (employee_check==2):
+            elif (employee_check == 2):
                 print("test")
-            elif (employee_check==3):
+            elif (employee_check == 3):
                 print("test")
         else:
             print("\nINVALID EMPLOYEE ID! \n")
