@@ -237,7 +237,10 @@ def addInventory():
 
 
 def addStore():
-    print("adding a new store")
+    print("Enter the store name: ")
+    store_id = input()
+
+    database_operations.addStore()
 
 
 def generateReport():
