@@ -92,6 +92,7 @@ def employeeSignup():
     print("\nWoohoo " + employee_name + ", You Have Successfully Created an Account! Your Employee ID is: " + em_id + "\nPlease Login to verify your account.\n")
     employeeLogin()
 
+
 def employeeLogin():
     #employee email
     print("\nEmployee ID:")
@@ -104,6 +105,8 @@ def employeeLogin():
     login_check = database_operations.loginAuth(employee_id, employee_password, "Employees", "employee_id", "employee_password")
      
     if (login_check == 1):
+        global store_id
+        store_id = database_operations.checkStore(employee_id)
 
         employee_rank = database_operations.employee_rank_check("Employees", "employee_id", employee_id)
         #print(employee_rank)
@@ -128,7 +131,7 @@ def managerMenu(employee_id):
     # menu options
     print("1.) Add Inventory\n")
     print("2.) Add Store\n")
-    print("3.) Generate Report\n\n")
+    print("3.) Generate Report\n")
     print("4.) Clock Out\n")
     choice = input()
 
@@ -232,6 +235,7 @@ def addInventory():
 
 def addStore():
     print("adding a new store")
+
 
 def generateReport():
     menutext = "Report Generator"

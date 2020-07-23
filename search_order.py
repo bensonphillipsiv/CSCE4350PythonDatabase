@@ -4,24 +4,11 @@ import database_operations
 store = "N/A"
 
 
-def orderMenu():
+def orderMenu(store_id):
     menutext = "Order Menu"
     table = [[menutext]]
     output = tabulate(table, tablefmt='grid')
     print(output)
-
-    print("What Store are you Shopping at?")
-    print("1.) New York\n")
-    print("2.) Los Angeles\n")
-    print("3.) Online\n")
-
-    choice = input()
-    if choice == "1":
-        store_id = "newyork"
-    elif choice == "2":
-        store_id = "losangeles"
-    elif choice == "3":
-        store_id = "online"
 
     part_number = 'N/A'
     part_number_list = []
@@ -37,10 +24,8 @@ def orderMenu():
         amount = input()
         list_amounts.append(amount)
 
-    if (database_operations.checkItems(store_id, part_number_list, list_amounts)):  # if there is stock available to buy
-        database_operations.updateItems(store_id, part_number_list, list_amounts, -1)  # update database
-    else:
-        print("Out of Stock on Items")
+    # if (database_operations.checkItems(store_id, part_number_list, list_amounts)):  # if there is stock available to buy
+    database_operations.updateItems(store_id, part_number_list, list_amounts, -1)  # update database
 
 
 def searchMenu(store_id):
