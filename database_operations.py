@@ -195,10 +195,10 @@ def clock_in_out(employee_id, clock_type):
         mycursor.execute(sqlformula1)
         j = mycursor.fetchone()
         latest_time = j[0]
-        print("This employee clocked in at: ", latest_time)
+        #print("Clocked in at: ", latest_time)
 
         string_latest_time = str(latest_time)
-        print(string_latest_time)
+        #print(string_latest_time)
 
         sqlformula2 = "Select timestampdiff(MINUTE, '"+ string_latest_time +"', now())"
 
@@ -212,5 +212,46 @@ def clock_in_out(employee_id, clock_type):
         newcustomer = (employee_id, clock_type)
         mycursor.execute(sqlformula, newcustomer)
         legodb.commit()
+
+
+#this will print a report for the individual employee   
+def indEmployeeReport(period, employee_id):
+    if (period == "daily"):
+
+        # this function will return hours worked by employee and other information 
+        sqlformula1 = "Select sum(time_difference) from reports where (time_in_out between date_add(now(), interval -1 day) and now())  AND employee_id = '"+ employee_id +"'"
         
-    
+        
+        mycursor.execute(sqlformula1)
+        
+        
+        check = mycursor.fetchone()
+        print("\nHours Worked Today: ", check[0]) 
+
+        #return check[0]
+
+    elif (perdiod == "weekly"):
+        # this function will return hours worked by employee and other information 
+        sqlformula1 = "Select sum(time_difference) from reports where (time_in_out between date_add(now(), interval -7 day) and now())  AND employee_id = '"+ employee_id +"'"
+        
+        
+        mycursor.execute(sqlformula1)
+        
+        
+        check = mycursor.fetchone()
+        print("\nHours Worked This Week: ", check[0]) 
+        
+    elif (perdiod == "monthly"):
+        # this function will return hours worked by employee and other information 
+        sqlformula1 = "Select sum(time_difference) from reports where (time_in_out between date_add(now(), interval -30 day) and now())  AND employee_id = '"+ employee_id +"'"
+        
+        
+        mycursor.execute(sqlformula1)
+        
+        
+        check = mycursor.fetchone()
+        print("\nHours Worked This Month: ", check[0]) 
+    #select sum(time_difference) from reports where employee_id = 1
+    #Select sum(time_difference) from reports where DATE(time_in_out)= date_sub(curdate(), interval 1 day) AND employee_id = '1'
+
+    #Select sum(time_difference) from reports where DATE(time_in_out)= date_sub(curdate(), interval 10 day) AND employee_id = '1'
