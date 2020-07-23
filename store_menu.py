@@ -3,7 +3,7 @@ import database_operations
 import search_order
 
 store_id = "N/A"
-
+global_employee_id = "N/A"
 
 def introStoreMenu():
     menutext = "Employee Login/ Signup"
@@ -123,6 +123,8 @@ def employeeLogin():
 
 # manager menu to update
 def managerMenu(employee_id):
+    global global_employee_id 
+    global_employee_id= (employee_id)
     menutext = "Manager Menu"
     table = [[menutext]]
     output = tabulate(table, tablefmt='grid')

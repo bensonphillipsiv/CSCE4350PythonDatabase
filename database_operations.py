@@ -1,5 +1,6 @@
 import mysql.connector
 import math
+import store_menu
 
 legodb = mysql.connector.connect(
     host="localhost",
@@ -321,3 +322,5 @@ def indEmployeeReport(period, employee_id):
     #Select sum(time_difference) from reports where DATE(time_in_out)= date_sub(curdate(), interval 1 day) AND employee_id = '1'
 
     #Select sum(time_difference) from reports where DATE(time_in_out)= date_sub(curdate(), interval 10 day) AND employee_id = '1'
+    store_menu.managerMenu(store_menu.global_employee_id)
+    print("\n\n\n") 
