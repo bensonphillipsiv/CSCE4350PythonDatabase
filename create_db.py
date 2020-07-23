@@ -177,10 +177,12 @@ mycursor.execute(
     "report_id INT NOT NULL AUTO_INCREMENT, "
     "report_time DATETIME NULL, "
     "employee_id INT, "
+    "store_id VARCHAR(255), "
     "time_in_out DATETIME NULL, "
     "type ENUM('in', 'out') NULL, "
     "time_difference int, "
     "customer_order INT, "
     "FOREIGN KEY (employee_id) REFERENCES Employees(employee_id), "
+    "FOREIGN KEY (store_id) REFERENCES Stores(store_id), "
     "PRIMARY KEY (report_id))"
 )

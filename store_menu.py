@@ -112,10 +112,10 @@ def employeeLogin():
         #print(employee_rank)
         if (employee_rank == "salesman"):
 
-            database_operations.clock_in_out(employee_id, "in")
+            database_operations.clock_in_out(employee_id, "in", store_id)
             salesmanMenu(employee_id)
         elif (employee_rank == "manager"):
-            database_operations.clock_in_out(employee_id, "in")
+            database_operations.clock_in_out(employee_id, "in", store_id)
             managerMenu(employee_id)   
     else:
         employeeLogin()   
@@ -144,7 +144,7 @@ def managerMenu(employee_id):
     elif choice == "3":
         generateReport()
     elif choice == "4":
-        database_operations.clock_in_out(employee_id, "out")
+        database_operations.clock_in_out(employee_id, "out", store_id)
     else:
         print("Please Enter a Correct Menu Choice...")
         managerMenu(employee_id)
@@ -169,7 +169,7 @@ def salesmanMenu(employee_id):
     elif choice == "2":
         search_order.searchMenu(store_id)
     elif choice == "3":
-        database_operations.clock_in_out(employee_id, "out")
+        database_operations.clock_in_out(employee_id, "out", store_id)
 
 
 def paymentMenu():
@@ -252,7 +252,30 @@ def generateReport():
     choice = input()
 
     if choice == "1":
-        print("DEV IS STILL WORKING ON THIS FEATURE")
+        #print("DEV IS STILL WORKING ON THIS FEATURE")
+        print("Which Store Would You Like To Generate a Report On?\n(Please Type in location)\n")
+        store_input = input()
+        employee_check = database_operations.columnCheck("stores", "store_id", store_input)
+        #print(employee_check)
+        if (employee_check == 1):
+            print("\nWhat kind of report would you like to generate?")
+            print("1.) Daily Report\n")
+            print("2.) Weekly Report\n")
+            print("3.) Monthly Report\n")
+            choice1 = input()
+
+            if (choice1=="1"):
+                database_operations.indStoreReport("daily", store_input)
+            elif (choice1=="2"):
+                database_operations.indStoreReport("weekly", store_input)
+            elif (choice1=="3"):
+                database_operations.indStoreReport("monthly", store_input)
+            else:
+                print("Invalid choice!")
+                generateReport()
+        else:
+            print("\nINVALID LOCATION! \n")
+            generateReport() 
     elif choice == "2":
         print("Which Employee Would You Like To Generate a Report On?\n(Please Type in Employee ID)\n")
         employee_input = input()

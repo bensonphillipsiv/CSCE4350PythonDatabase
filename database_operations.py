@@ -245,11 +245,11 @@ def loginAuth(email, password, db_table, db_column, password_cat):
 
 
 #this function will either clock someone in or out and calculate hours worked per shift.
-def clock_in_out(employee_id, clock_type):
+def clock_in_out(employee_id, clock_type, store_id):
 
     if (clock_type == "in"):
         # this function will clock a user in
-        sqlformula = "INSERT INTO Reports(employee_id, time_in_out, type) VALUES(%s, now(), %s)"
+        sqlformula = "INSERT INTO Reports(employee_id, time_in_out, type, store_id) VALUES(%s, now(), %s, '" + store_id + "')"
         newcustomer = (employee_id, clock_type)
         mycursor.execute(sqlformula, newcustomer)
         legodb.commit()
@@ -275,7 +275,7 @@ def clock_in_out(employee_id, clock_type):
         time_diff = k[0]
         string_time_diff = str(time_diff)
 
-        sqlformula = "INSERT INTO Reports(employee_id, time_in_out, type, time_difference) VALUES(%s, now(), %s, '" + string_time_diff + "')"
+        sqlformula = "INSERT INTO Reports(employee_id, time_in_out, type, time_difference, store_id) VALUES(%s, now(), %s, '" + string_time_diff + "', '" + store_id + "')"
         newcustomer = (employee_id, clock_type)
         mycursor.execute(sqlformula, newcustomer)
         legodb.commit()
@@ -322,5 +322,52 @@ def indEmployeeReport(period, employee_id):
     #Select sum(time_difference) from reports where DATE(time_in_out)= date_sub(curdate(), interval 1 day) AND employee_id = '1'
 
     #Select sum(time_difference) from reports where DATE(time_in_out)= date_sub(curdate(), interval 10 day) AND employee_id = '1'
-    store_menu.managerMenu(store_menu.global_employee_id)
     print("\n\n\n") 
+
+    store_menu.managerMenu(store_menu.global_employee_id)
+
+#this will print a report for the individual store   
+def indStoreReport(period, ind_store_id):
+    if (period == "daily"):
+
+        # this function will return hours worked by a store and other information 
+        sqlformula1 = "Select sum(time_difference) from reports where (time_in_out between date_add(now(), interval -1 day) and now())  AND store_id = '"+ ind_store_id +"'"
+        
+        #print(sqlformula1)
+        mycursor.execute(sqlformula1)
+        
+        
+        check = mycursor.fetchone()
+        print("\nHours Worked Today At This Location: ", check[0]) 
+
+        #return check[0]
+
+    elif (period == "weekly"):
+        # this function will return hours worked by a store and other information 
+        sqlformula1 = "Select sum(time_difference) from reports where (time_in_out between date_add(now(), interval -7 day) and now())  AND employee_id = '"+ ind_store_id +"'"
+        
+        
+        mycursor.execute(sqlformula1)
+        
+        
+        check = mycursor.fetchone()
+        print("\nHours Worked This Week At This Location: ", check[0]) 
+        
+    elif (period == "monthly"):
+        # this function will return hours worked by a store and other information 
+        sqlformula1 = "Select sum(time_difference) from reports where (time_in_out between date_add(now(), interval -30 day) and now())  AND employee_id = '"+ ind_store_id +"'"
+        
+        
+        mycursor.execute(sqlformula1)
+        
+        
+        check = mycursor.fetchone()
+        print("\nHours Worked This Month At This Location: ", check[0]) 
+    #select sum(time_difference) from reports where employee_id = 1
+    #Select sum(time_difference) from reports where DATE(time_in_out)= date_sub(curdate(), interval 1 day) AND employee_id = '1'
+
+    #Select sum(time_difference) from reports where DATE(time_in_out)= date_sub(curdate(), interval 10 day) AND employee_id = '1'
+    print("\n\n\n") 
+    
+    store_menu.managerMenu(store_menu.global_employee_id)
+    
