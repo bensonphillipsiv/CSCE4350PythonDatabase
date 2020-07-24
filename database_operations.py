@@ -283,7 +283,33 @@ def clock_in_out(employee_id, clock_type, store_id):
 
 #this will print a report for the individual employee   
 def indEmployeeReport(period, employee_id):
+    ei="Employee ID"
+    si="Store ID"
+    tio= "Time"
+    cio= "Clock In/Out"
+    td= "Shift Lenght(min)"
+    cd= "Orders Completed"
+
     if (period == "daily"):
+        sqlformula1 = "Select * from reports where (time_in_out between date_add(now(), interval -1 day) and now())  AND employee_id = '"+ employee_id +"'"
+        mycursor.execute(sqlformula1)
+        check = mycursor.fetchall()
+        print("|", 
+                ei, " "*(20-len(ei)), "|",
+                si, " "*(20-len(si)), "|",
+                tio, " "*(20-len(tio)), "|",
+                cio, " "*(20-len(cio)), "|",
+                td, " "*(20-len(td)), "|",
+                cd, " "*(20-len(cd)), "|")
+        for item in check:
+            print("|", 
+                item[2], " "*(20-len(str(item[2]))), "|",
+                item[3], " "*(20-len(str(item[3]))), "|",
+                item[4], " "*(20-len(str(item[4]))), "|",
+                item[5], " "*(20-len(str(item[5]))), "|",
+                item[6], " "*(20-len(str(item[6]))), "|",
+                item[7], " "*(20-len(str(item[7]))), "|") 
+
 
         # this function will return hours worked by employee and other information 
         sqlformula1 = "Select sum(time_difference) from reports where (time_in_out between date_add(now(), interval -1 day) and now())  AND employee_id = '"+ employee_id +"'"
@@ -293,23 +319,59 @@ def indEmployeeReport(period, employee_id):
         
         
         check = mycursor.fetchone()
-        print("\nHours Worked Today: ", check[0]) 
-
+        print("\nHours Worked Today: ", check[0]/60) 
         #return check[0]
 
     elif (period == "weekly"):
         # this function will return hours worked by employee and other information 
-        sqlformula1 = "Select sum(time_difference) from reports where (time_in_out between date_add(now(), interval -7 day) and now())  AND employee_id = '"+ employee_id +"'"
-        
-        
+        sqlformula1 = "Select * from reports where (time_in_out between date_add(now(), interval -7 day) and now())  AND employee_id = '"+ employee_id +"'"
         mycursor.execute(sqlformula1)
-        
-        
+        check = mycursor.fetchall()
+        print("|", 
+                ei, " "*(20-len(ei)), "|",
+                si, " "*(20-len(si)), "|",
+                tio, " "*(20-len(tio)), "|",
+                cio, " "*(20-len(cio)), "|",
+                td, " "*(20-len(td)), "|",
+                cd, " "*(20-len(cd)), "|")
+        for item in check:
+            print("|", 
+                item[2], " "*(20-len(str(item[2]))), "|",
+                item[3], " "*(20-len(str(item[3]))), "|",
+                item[4], " "*(20-len(str(item[4]))), "|",
+                item[5], " "*(20-len(str(item[5]))), "|",
+                item[6], " "*(20-len(str(item[6]))), "|",
+                item[7], " "*(20-len(str(item[7]))), "|") 
+
+        sqlformula1 = "Select sum(time_difference) from reports where (time_in_out between date_add(now(), interval -7 day) and now())  AND employee_id = '"+ employee_id +"'"
+        mycursor.execute(sqlformula1)
         check = mycursor.fetchone()
-        print("\nHours Worked This Week: ", check[0]) 
+        print("\nHours Worked This Week: ", check[0]/60)
+
+
         
     elif (period == "monthly"):
         # this function will return hours worked by employee and other information 
+        sqlformula1 = "Select * from reports where (time_in_out between date_add(now(), interval -30 day) and now())  AND employee_id = '"+ employee_id +"'"
+        mycursor.execute(sqlformula1)
+        check = mycursor.fetchall()
+    
+        print("|", 
+                ei, " "*(20-len(ei)), "|",
+                si, " "*(20-len(si)), "|",
+                tio, " "*(20-len(tio)), "|",
+                cio, " "*(20-len(cio)), "|",
+                td, " "*(20-len(td)), "|",
+                cd, " "*(20-len(cd)), "|")
+        for item in check:
+            print("|", 
+                item[2], " "*(20-len(str(item[2]))), "|",
+                item[3], " "*(20-len(str(item[3]))), "|",
+                item[4], " "*(20-len(str(item[4]))), "|",
+                item[5], " "*(20-len(str(item[5]))), "|",
+                item[6], " "*(20-len(str(item[6]))), "|",
+                item[7], " "*(20-len(str(item[7]))), "|")
+
         sqlformula1 = "Select sum(time_difference) from reports where (time_in_out between date_add(now(), interval -30 day) and now())  AND employee_id = '"+ employee_id +"'"
         
         
@@ -317,7 +379,7 @@ def indEmployeeReport(period, employee_id):
         
         
         check = mycursor.fetchone()
-        print("\nHours Worked This Month: ", check[0]) 
+        print("\nHours Worked This Month: ", check[0]/60) 
     #select sum(time_difference) from reports where employee_id = 1
     #Select sum(time_difference) from reports where DATE(time_in_out)= date_sub(curdate(), interval 1 day) AND employee_id = '1'
 
@@ -328,8 +390,32 @@ def indEmployeeReport(period, employee_id):
 
 #this will print a report for the individual store   
 def indStoreReport(period, ind_store_id):
-    if (period == "daily"):
+    ei="Employee ID"
+    si="Store ID"
+    tio= "Time"
+    cio= "Clock In/Out"
+    td= "Shift Lenght(min)"
+    cd= "Orders Completed"
 
+    if (period == "daily"):
+        sqlformula1 = "Select * from reports where (time_in_out between date_add(now(), interval -1 day) and now())  AND store_id = '"+ ind_store_id +"'"
+        mycursor.execute(sqlformula1)
+        check = mycursor.fetchall()
+        print("|", 
+                ei, " "*(20-len(ei)), "|",
+                si, " "*(20-len(si)), "|",
+                tio, " "*(20-len(tio)), "|",
+                cio, " "*(20-len(cio)), "|",
+                td, " "*(20-len(td)), "|",
+                cd, " "*(20-len(cd)), "|")
+        for item in check:
+            print("|", 
+                item[2], " "*(20-len(str(item[2]))), "|",
+                item[3], " "*(20-len(str(item[3]))), "|",
+                item[4], " "*(20-len(str(item[4]))), "|",
+                item[5], " "*(20-len(str(item[5]))), "|",
+                item[6], " "*(20-len(str(item[6]))), "|",
+                item[7], " "*(20-len(str(item[7]))), "|") 
         # this function will return hours worked by a store and other information 
         sqlformula1 = "Select sum(time_difference) from reports where (time_in_out between date_add(now(), interval -1 day) and now())  AND store_id = '"+ ind_store_id +"'"
         
@@ -338,11 +424,29 @@ def indStoreReport(period, ind_store_id):
         
         
         check = mycursor.fetchone()
-        print("\nHours Worked Today At This Location: ", check[0]) 
+        #print("\nMinutes Worked Today At This Location: ", check[0]) 
 
         #return check[0]
 
     elif (period == "weekly"):
+        sqlformula1 = "Select * from reports where (time_in_out between date_add(now(), interval -7 day) and now())  AND store_id = '"+ ind_store_id +"'"
+        mycursor.execute(sqlformula1)
+        check = mycursor.fetchall()
+        print("|", 
+                ei, " "*(20-len(ei)), "|",
+                si, " "*(20-len(si)), "|",
+                tio, " "*(20-len(tio)), "|",
+                cio, " "*(20-len(cio)), "|",
+                td, " "*(20-len(td)), "|",
+                cd, " "*(20-len(cd)), "|")
+        for item in check:
+            print("|", 
+                item[2], " "*(20-len(str(item[2]))), "|",
+                item[3], " "*(20-len(str(item[3]))), "|",
+                item[4], " "*(20-len(str(item[4]))), "|",
+                item[5], " "*(20-len(str(item[5]))), "|",
+                item[6], " "*(20-len(str(item[6]))), "|",
+                item[7], " "*(20-len(str(item[7]))), "|") 
         # this function will return hours worked by a store and other information 
         sqlformula1 = "Select sum(time_difference) from reports where (time_in_out between date_add(now(), interval -7 day) and now())  AND employee_id = '"+ ind_store_id +"'"
         
@@ -351,9 +455,28 @@ def indStoreReport(period, ind_store_id):
         
         
         check = mycursor.fetchone()
-        print("\nHours Worked This Week At This Location: ", check[0]) 
+       # print("\nMinutes Worked This Week At This Location: ", check[0]) 
         
     elif (period == "monthly"):
+
+        sqlformula1 = "Select * from reports where (time_in_out between date_add(now(), interval -30 day) and now())  AND store_id = '"+ ind_store_id +"'"
+        mycursor.execute(sqlformula1)
+        check = mycursor.fetchall()
+        print("|", 
+                ei, " "*(20-len(ei)), "|",
+                si, " "*(20-len(si)), "|",
+                tio, " "*(20-len(tio)), "|",
+                cio, " "*(20-len(cio)), "|",
+                td, " "*(20-len(td)), "|",
+                cd, " "*(20-len(cd)), "|")
+        for item in check:
+            print("|", 
+                item[2], " "*(20-len(str(item[2]))), "|",
+                item[3], " "*(20-len(str(item[3]))), "|",
+                item[4], " "*(20-len(str(item[4]))), "|",
+                item[5], " "*(20-len(str(item[5]))), "|",
+                item[6], " "*(20-len(str(item[6]))), "|",
+                item[7], " "*(20-len(str(item[7]))), "|") 
         # this function will return hours worked by a store and other information 
         sqlformula1 = "Select sum(time_difference) from reports where (time_in_out between date_add(now(), interval -30 day) and now())  AND employee_id = '"+ ind_store_id +"'"
         
@@ -362,11 +485,8 @@ def indStoreReport(period, ind_store_id):
         
         
         check = mycursor.fetchone()
-        print("\nHours Worked This Month At This Location: ", check[0]) 
-    #select sum(time_difference) from reports where employee_id = 1
-    #Select sum(time_difference) from reports where DATE(time_in_out)= date_sub(curdate(), interval 1 day) AND employee_id = '1'
+        #print("\nMinutes Worked This Month At This Location: ", check[0]) 
 
-    #Select sum(time_difference) from reports where DATE(time_in_out)= date_sub(curdate(), interval 10 day) AND employee_id = '1'
     print("\n\n\n") 
     
     store_menu.managerMenu(store_menu.global_employee_id)
