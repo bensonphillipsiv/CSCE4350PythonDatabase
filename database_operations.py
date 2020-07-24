@@ -568,5 +568,35 @@ def indStoreReport(period, ind_store_id):
     
     store_menu.managerMenu(store_menu.global_employee_id)
     
-def generateSalesReport():
-    print("DEV STILL WORKING ON THIS")
+def generateOrdersReport():
+    oi="Order ID"
+    si="Store ID"
+    ei="Employee ID"
+    od="Order Date"
+    bi="Brick ID"
+    bsi="Brick Set ID"
+    bq="Brick Quantity"
+    bsq="Brick Set Quantity"
+
+    sqlformula1 = "SELECT orders.order_id, orders.store_id, orders.employee_id, orders.order_date, orderitems.brick_id, orderitems.brick_set_id, orderitems.brick_quantity, orderitems.brick_set_quantity from orders INNER JOIN orderitems ON orders.order_id = orderitems.order_id"
+    mycursor.execute(sqlformula1)
+    check = mycursor.fetchall()
+    print("|", 
+        oi, " "*(20-len(oi)), "|",
+        si, " "*(20-len(si)), "|",
+        ei, " "*(20-len(ei)), "|",
+        od, " "*(20-len(od)), "|",
+        bi, " "*(20-len(bi)), "|",
+        bsi, " "*(20-len(bsi)), "|",
+        bq, " "*(20-len(bq)), "|",
+        bsq, " "*(20-len(bsq)), "|")
+    for item in check:
+        print("|", 
+            item[0], " "*(20-len(str(item[0]))), "|",
+            item[1], " "*(20-len(str(item[1]))), "|",
+            item[2], " "*(20-len(str(item[2]))), "|",
+            item[3], " "*(20-len(str(item[3]))), "|",
+            item[4], " "*(20-len(str(item[4]))), "|",
+            item[5], " "*(20-len(str(item[5]))), "|",
+            item[6], " "*(20-len(str(item[6]))), "|",
+            item[7], " "*(20-len(str(item[7]))), "|") 

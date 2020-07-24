@@ -295,5 +295,5 @@ def generateReport():
             print("\nINVALID EMPLOYEE ID! \n")
             generateReport() 
     elif choice == "3":
-        generateSalesReport()
+        database_operations.generateOrdersReport()
         
