@@ -1,13 +1,9 @@
-from tabulate import tabulate
 import online_menu
 import store_menu
 
 
 def intro():
-    menutext = "Welcome to the Lego store. \nPlease Select Store Mode or Online Mode:)"
-    table = [[menutext]]
-    output = tabulate(table, tablefmt='grid')
-    print(output)
+    print("---Welcome to the Lego store. \nPlease Select Store Mode or Online Mode---")
 
     # menu options
     print("1.) Store Mode (Employees)\n")

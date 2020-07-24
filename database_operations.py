@@ -3,7 +3,6 @@ import math
 import store_menu
 
 
-
 legodb = mysql.connector.connect(
     host="localhost",
     user="root",
@@ -99,6 +98,14 @@ def employee_rank_check(db_table, db_column, db_item):
 
     check = mycursor.fetchone()
     return check[0]
+
+
+def addStore(store_id):
+    sqlformula = "INSERT INTO Stores VALUES('" + store_id + "', '" + store_id + "')"
+    mycursor.execute(sqlformula)
+    legodb.commit()
+
+    print("**Store Added**")
 
 
 def addNewCustomer(customer_name, customer_phone, customer_address, customer_email, customer_password, customer_card):
@@ -252,7 +259,6 @@ def orderUpdate(store_id, global_employee_id, payment_type, part_number_list, li
             if part_number_list[j] == brick[0]:
                 brick_set_id.append(part_number_list[j])
                 brick_set_amount.append(list_amounts[j])
-
 
     sqlFormula = "SELECT order_id FROM Orders WHERE order_id = (SELECT LAST_INSERT_ID())"
     mycursor.execute(sqlFormula)

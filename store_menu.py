@@ -1,4 +1,3 @@
-from tabulate import tabulate
 import database_operations
 import search_order
 
@@ -7,10 +6,7 @@ global_employee_id = "N/A"
 
 
 def introStoreMenu():
-    menutext = "Employee Login/ Signup"
-    table = [[menutext]]
-    output = tabulate(table, tablefmt='grid')
-    print(output)
+    print("----Employee Login/ Signup---")
 
     # menu options
     print("1.) Signup\n")
@@ -27,10 +23,7 @@ def introStoreMenu():
 
 
 def employeeSignup():
-    menutext = "New Employee Sign Up"
-    table = [[menutext]]
-    output = tabulate(table, tablefmt='grid')
-    print(output)
+    print("---New Employee Sign Up---")
 
     # Name input
     print("\nEnter Your Name:")
@@ -128,11 +121,9 @@ def employeeLogin():
 # manager menu to update
 def managerMenu(employee_id):
     global global_employee_id 
-    global_employee_id= (employee_id)
-    menutext = "Manager Menu"
-    table = [[menutext]]
-    output = tabulate(table, tablefmt='grid')
-    print(output)
+    global_employee_id = (employee_id)
+
+    print("---Manager Menu---")
 
     # menu options
     print("1.) Add Inventory\n")
@@ -155,10 +146,7 @@ def managerMenu(employee_id):
 
 
 def salesmanMenu(employee_id):
-    menutext = "Salesman Menu"
-    table = [[menutext]]
-    output = tabulate(table, tablefmt='grid')
-    print(output)
+    print("---Salesman Menu---")
 
     # menu options
     print("1.) Sell Items\n")
@@ -178,10 +166,7 @@ def salesmanMenu(employee_id):
 
 def paymentMenu(store_id, part_number_list, list_amounts):
     global global_employee_id
-    menutext = "Payment Menu"
-    table = [[menutext]]
-    output = tabulate(table, tablefmt='grid')
-    print(output)
+    print("---Payment Menu---")
 
     # payment type
     print("Payment Type:\n")
@@ -248,14 +233,11 @@ def addStore():
     print("Enter the store name: ")
     store_id = input()
 
-    database_operations.addStore()
+    database_operations.addStore(store_id)
 
 
 def generateReport():
-    menutext = "Report Generator"
-    table = [[menutext]]
-    output = tabulate(table, tablefmt='grid')
-    print(output)
+    print("---Report Generator---")
 
     # menu options
     print("1.) Generate Employee Report For The Store\n")

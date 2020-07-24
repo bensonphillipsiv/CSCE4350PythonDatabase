@@ -1,13 +1,9 @@
-from tabulate import tabulate
 import database_operations
 import store_menu
 
 
 def orderMenu(store_id):
-    menutext = "Order Menu"
-    table = [[menutext]]
-    output = tabulate(table, tablefmt='grid')
-    print(output)
+    print("---Order Menu---")
 
     part_number = 'N/A'
     part_number_list = []
@@ -30,10 +26,7 @@ def orderMenu(store_id):
 
 
 def searchMenu(store_id):
-    menutext = "Search Menu"
-    table = [[menutext]]
-    output = tabulate(table, tablefmt='grid')
-    print(output)
+    print("---Search Menu---")
 
     # menu options
     print("Enter a Keyword to Search for Sets or Bricks:\n")
