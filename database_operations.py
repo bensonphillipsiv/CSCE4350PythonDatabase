@@ -2,6 +2,8 @@ import mysql.connector
 import math
 import store_menu
 
+
+
 legodb = mysql.connector.connect(
     host="localhost",
     user="root",
@@ -193,7 +195,6 @@ def updateItems(store_id, part_number_list, list_amounts, val):
     mycursor.execute(sqlFormula)
     result = mycursor.fetchall()
 
-
     for i in range(len(part_number_list)):
         for brickset in result:
             if part_number_list[i] == brickset[0]:
@@ -215,6 +216,62 @@ def updateItems(store_id, part_number_list, list_amounts, val):
         legodb.commit()
 
     print("Updated Database")
+
+
+def orderUpdate(store_id, global_employee_id, payment_type, part_number_list, list_amounts):
+    # adding order details to order management
+    sqlFormula = "INSERT INTO Orders(store_id, employee_id, payment_method) VALUES('" + store_id + "', " + global_employee_id + ", '" + payment_type + "')"
+    mycursor.execute(sqlFormula)
+    legodb.commit()
+
+    brick_id = []
+    brick_amount = []
+    brick_set_id = []
+    brick_set_amount = []
+
+    # checking the current inventory of bricks
+    sqlFormula = "SELECT brick_id FROM Bricks"
+    mycursor.execute(sqlFormula)
+    result = mycursor.fetchall()
+
+    # adding the singular bricks to a list
+    for k in range(len(part_number_list)):
+        for brick in result:
+            if part_number_list[k] == brick[0]:
+                brick_id.append(part_number_list[k])
+                brick_amount.append(list_amounts[k])
+
+    # checking the current inventory of brick sets
+    sqlFormula = "SELECT brick_set_id FROM BrickSets"
+    mycursor.execute(sqlFormula)
+    result = mycursor.fetchall()
+
+    # adding the singular bricks to a list
+    for j in range(len(part_number_list)):
+        for brick in result:
+            if part_number_list[j] == brick[0]:
+                brick_set_id.append(part_number_list[j])
+                brick_set_amount.append(list_amounts[j])
+
+
+    sqlFormula = "SELECT order_id FROM Orders WHERE order_id = (SELECT LAST_INSERT_ID())"
+    mycursor.execute(sqlFormula)
+    result = mycursor.fetchone()
+
+    order_id = result[0]
+    print(order_id)
+
+    for i in range(len(brick_id)):
+        sqlFormula = "INSERT INTO OrderItems(order_id, brick_id, brick_quantity) VALUES(" + str(order_id) + ", " + brick_id[i] + ", " + str(brick_amount[i]) + ")"
+        mycursor.execute(sqlFormula)
+        legodb.commit()
+
+    for l in range(len(brick_set_id)):
+        sqlFormula = "INSERT INTO OrderItems(order_id, brick_set_id, brick_set_quantity) VALUES(" + str(order_id) + ", " + brick_set_id[l] + ", " + str(brick_set_amount[l]) + ")"
+        mycursor.execute(sqlFormula)
+        legodb.commit()
+
+    print("**Recorded Order**")
 
 
 #this function will verify password and login, will return a 1 for login and 0 for failure

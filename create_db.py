@@ -148,12 +148,14 @@ mycursor.execute("INSERT INTO BrickSetItems VALUES('45', '5', '4')")
 mycursor.execute(
     "CREATE TABLE Orders ("
     "order_id INT AUTO_INCREMENT, "
+    "store_id VARCHAR(255)," 
     "customer_id INT, "
     "employee_id INT, "
     "payment_method VARCHAR(255), "
     "delivery_date TIMESTAMP, "
     "order_date TIMESTAMP, "
     "PRIMARY KEY (order_id), "
+    "FOREIGN KEY (store_id) REFERENCES Stores(store_id), "
     "FOREIGN KEY (customer_id) REFERENCES Customers(customer_id), "
     "FOREIGN KEY (employee_id) REFERENCES Employees(employee_id))"
 )

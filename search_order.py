@@ -1,7 +1,6 @@
 from tabulate import tabulate
 import database_operations
-
-store = "N/A"
+import store_menu
 
 
 def orderMenu(store_id):
@@ -24,8 +23,10 @@ def orderMenu(store_id):
         amount = input()
         list_amounts.append(amount)
 
-    # if (database_operations.checkItems(store_id, part_number_list, list_amounts)):  # if there is stock available to buy
-    database_operations.updateItems(store_id, part_number_list, list_amounts, -1)  # update database
+    if (database_operations.checkItems(store_id, part_number_list, list_amounts)):  # if there is stock available to buy
+        database_operations.updateItems(store_id, part_number_list, list_amounts, -1)  # update database
+
+    return store_id, part_number_list, list_amounts
 
 
 def searchMenu(store_id):

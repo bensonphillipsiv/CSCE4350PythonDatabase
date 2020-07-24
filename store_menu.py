@@ -5,6 +5,7 @@ import search_order
 store_id = "N/A"
 global_employee_id = "N/A"
 
+
 def introStoreMenu():
     menutext = "Employee Login/ Signup"
     table = [[menutext]]
@@ -98,6 +99,9 @@ def employeeLogin():
     print("\nEmployee ID:")
     employee_id = input()
 
+    global global_employee_id
+    global_employee_id = employee_id
+
     print("\nPassword:")
     employee_password = input()
 
@@ -164,15 +168,16 @@ def salesmanMenu(employee_id):
 
     global store_id
     if choice == "1":
-        search_order.orderMenu(store_id)
-        paymentMenu()
+        store_id, part_number_list, list_amounts = search_order.orderMenu(store_id)
+        paymentMenu(store_id, part_number_list, list_amounts)
     elif choice == "2":
         search_order.searchMenu(store_id)
     elif choice == "3":
         database_operations.clock_in_out(employee_id, "out", store_id)
 
 
-def paymentMenu():
+def paymentMenu(store_id, part_number_list, list_amounts):
+    global global_employee_id
     menutext = "Payment Menu"
     table = [[menutext]]
     output = tabulate(table, tablefmt='grid')
@@ -199,9 +204,12 @@ def paymentMenu():
         elif choice == "3":
             card_type = "MC"
 
-    # Card Number
-    print("Enter Card Number:\n")
-    card_number = input()
+        # Card Number
+        print("Enter Card Number:\n")
+        card_number = input()
+
+    database_operations.orderUpdate(store_id, global_employee_id, payment_type, part_number_list, list_amounts)
+    print("Thank you for your payment")
 
 
 def addInventory():
