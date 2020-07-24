@@ -258,8 +258,9 @@ def generateReport():
     print(output)
 
     # menu options
-    print("1.) Generate Report For The Store\n")
-    print("2.) Generate Report For an Employee\n")
+    print("1.) Generate Employee Report For The Store\n")
+    print("2.) Generate Individual Employee Report\n")
+    print("3.) Generate Orders Report\n")
     choice = input()
 
     if choice == "1":
@@ -311,3 +312,6 @@ def generateReport():
         else:
             print("\nINVALID EMPLOYEE ID! \n")
             generateReport() 
+    elif choice == "3":
+        generateSalesReport()
+        

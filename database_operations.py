@@ -266,8 +266,17 @@ def orderUpdate(store_id, global_employee_id, payment_type, part_number_list, li
         mycursor.execute(sqlFormula)
         legodb.commit()
 
+        sqlFormula = "UPDATE orders SET order_date = now() where order_id = "+str(order_id)+""
+        mycursor.execute(sqlFormula)
+        legodb.commit()
+
+
     for l in range(len(brick_set_id)):
         sqlFormula = "INSERT INTO OrderItems(order_id, brick_set_id, brick_set_quantity) VALUES(" + str(order_id) + ", " + brick_set_id[l] + ", " + str(brick_set_amount[l]) + ")"
+        mycursor.execute(sqlFormula)
+        legodb.commit()
+
+        sqlFormula = "UPDATE orders SET order_date = now() where order_id = "+str(order_id)+""
         mycursor.execute(sqlFormula)
         legodb.commit()
 
@@ -365,7 +374,12 @@ def indEmployeeReport(period, employee_id):
                 item[4], " "*(20-len(str(item[4]))), "|",
                 item[5], " "*(20-len(str(item[5]))), "|",
                 item[6], " "*(20-len(str(item[6]))), "|",
-                item[7], " "*(20-len(str(item[7]))), "|") 
+                item[7], " "*(20-len(str(item[7]))), "|\n\n\n") 
+    
+        sqlformula1 = "Select * from reports where (time_in_out between date_add(now(), interval -1 day) and now())  AND employee_id = '"+ employee_id +"'"
+        mycursor.execute(sqlformula1)
+        check = mycursor.fetchall()
+
 
 
         # this function will return hours worked by employee and other information 
@@ -548,3 +562,5 @@ def indStoreReport(period, ind_store_id):
     
     store_menu.managerMenu(store_menu.global_employee_id)
     
+def generateSalesReport():
+    print("DEV STILL WORKING ON THIS")
