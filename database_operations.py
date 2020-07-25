@@ -276,7 +276,6 @@ def orderUpdate(store_id, global_employee_id, payment_type, part_number_list, li
         mycursor.execute(sqlFormula)
         legodb.commit()
 
-
     for l in range(len(brick_set_id)):
         sqlFormula = "INSERT INTO OrderItems(order_id, brick_set_id, brick_set_quantity) VALUES(" + str(order_id) + ", " + brick_set_id[l] + ", " + str(brick_set_amount[l]) + ")"
         mycursor.execute(sqlFormula)
