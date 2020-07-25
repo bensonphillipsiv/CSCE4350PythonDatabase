@@ -386,12 +386,17 @@ def indEmployeeReport(period, employee_id):
         mycursor.execute(sqlformula1)
         check = mycursor.fetchall()
 
+
+
         # this function will return hours worked by employee and other information 
         sqlformula1 = "Select sum(time_difference) from reports where (time_in_out between date_add(now(), interval -1 day) and now())  AND employee_id = '"+ employee_id +"'"
+        
+        
         mycursor.execute(sqlformula1)
         
+        
         check = mycursor.fetchone()
-        print("\nHours Worked Today: ", check[0]) 
+        print("\nHours Worked Today: ", check[0]/60) 
         #return check[0]
 
     elif (period == "weekly"):
@@ -418,7 +423,7 @@ def indEmployeeReport(period, employee_id):
         sqlformula1 = "Select sum(time_difference) from reports where (time_in_out between date_add(now(), interval -7 day) and now())  AND employee_id = '"+ employee_id +"'"
         mycursor.execute(sqlformula1)
         check = mycursor.fetchone()
-        print("\nHours Worked This Week: ", check[0])
+        print("\nHours Worked This Week: ", check[0]/60)
 
 
         
@@ -448,10 +453,10 @@ def indEmployeeReport(period, employee_id):
         
         
         mycursor.execute(sqlformula1)
-
+        
         
         check = mycursor.fetchone()
-        print("\nHours Worked This Month: ", check[0]) 
+        print("\nHours Worked This Month: ", check[0]/60) 
     #select sum(time_difference) from reports where employee_id = 1
     #Select sum(time_difference) from reports where DATE(time_in_out)= date_sub(curdate(), interval 1 day) AND employee_id = '1'
 
@@ -521,11 +526,13 @@ def indStoreReport(period, ind_store_id):
                 item[7], " "*(20-len(str(item[7]))), "|") 
         # this function will return hours worked by a store and other information 
         sqlformula1 = "Select sum(time_difference) from reports where (time_in_out between date_add(now(), interval -7 day) and now())  AND employee_id = '"+ ind_store_id +"'"
-
+        
+        
         mycursor.execute(sqlformula1)
-
+        
+        
         check = mycursor.fetchone()
-        # print("\nMinutes Worked This Week At This Location: ", check[0])
+       # print("\nMinutes Worked This Week At This Location: ", check[0]) 
         
     elif (period == "monthly"):
 
@@ -560,8 +567,7 @@ def indStoreReport(period, ind_store_id):
     print("\n\n\n") 
     
     store_menu.managerMenu(store_menu.global_employee_id)
-
-
+    
 def generateOrdersReport():
     oi="Order ID"
     si="Store ID"

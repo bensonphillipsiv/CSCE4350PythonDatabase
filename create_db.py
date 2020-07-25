@@ -204,24 +204,30 @@ mycursor.execute(
 )
 
 #populating monthly clock ins
-mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type) VALUES('1', 'newyork', '2020-06-24 00:09:00', 'in')")
-mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type) VALUES('2', 'losangeles', '2020-06-24 00:09:00', 'in')")
-mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type, time_difference) VALUES('1', 'newyork', '2020-06-24 00:17:00', 'out', '8')")
-mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type, time_difference) VALUES('2', 'losangeles', '2020-06-24 00:17:00', 'out', '8')")
+mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type) VALUES('1', 'newyork', '2020-06-29 00:09:00', 'in')")
+mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type) VALUES('2', 'losangeles', '2020-06-29 00:09:00', 'in')")
+mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type, time_difference) VALUES('1', 'newyork', '2020-06-29 00:17:00', 'out', '480')")
+mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type, time_difference) VALUES('2', 'losangeles', '2020-06-29 00:17:00', 'out', '480')")
 
-mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type) VALUES('1', 'newyork', '2020-06-25 00:09:00', 'in')")
-mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type) VALUES('2', 'losangeles', '2020-06-25 00:09:00', 'in')")
-mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type, time_difference) VALUES('1', 'newyork', '2020-06-25 00:17:00', 'out', '8')")
-mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type, time_difference) VALUES('2', 'losangeles', '2020-06-25 00:17:00', 'out', '8')")
+mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type) VALUES('1', 'newyork', '2020-06-30 00:09:00', 'in')")
+mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type) VALUES('2', 'losangeles', '2020-06-30 00:09:00', 'in')")
+mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type, time_difference) VALUES('1', 'newyork', '2020-06-30 00:17:00', 'out', '480')")
+mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type, time_difference) VALUES('2', 'losangeles', '2020-06-30 00:17:00', 'out', '480')")
 
 #populating weekly clock ins
-mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type) VALUES('1', 'newyork', '2020-06-20 00:09:00', 'in')")
-mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type) VALUES('2', 'losangeles', '2020-06-20 00:09:00', 'in')")
-mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type, time_difference) VALUES('1', 'newyork', '2020-06-20 00:17:00', 'out', '8')")
-mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type, time_difference) VALUES('2', 'losangeles', '2020-06-20 00:17:00', 'out', '8')")
+mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type) VALUES('1', 'newyork', '2020-07-20 00:09:00', 'in')")
+mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type) VALUES('2', 'losangeles', '2020-07-20 00:09:00', 'in')")
+mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type, time_difference) VALUES('1', 'newyork', '2020-07-20 00:17:00', 'out', '480')")
+mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type, time_difference) VALUES('2', 'losangeles', '2020-07-20 00:17:00', 'out', '480')")
 
-mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type) VALUES('1', 'newyork', '2020-06-21 00:09:00', 'in')")
-mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type) VALUES('2', 'losangeles', '2020-06-21 00:09:00', 'in')")
-mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type, time_difference) VALUES('1', 'newyork', '2020-06-21 00:17:00', 'out', '8')")
-mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type, time_difference) VALUES('2', 'losangeles', '2020-06-21 00:17:00', 'out', '8')")
+mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type) VALUES('1', 'newyork', '2020-07-21 00:09:00', 'in')")
+mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type) VALUES('2', 'losangeles', '2020-07-21 00:09:00', 'in')")
+mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type, time_difference) VALUES('1', 'newyork', '2020-07-21 00:17:00', 'out', '480')")
+mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type, time_difference) VALUES('2', 'losangeles', '2020-07-21 00:17:00', 'out', '480')")
+
+
+
+
+
+
 legodb.commit()
