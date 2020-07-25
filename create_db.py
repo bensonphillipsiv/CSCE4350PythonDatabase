@@ -204,3 +204,4 @@ mycursor.execute(
 
 mycursor.execute("INSERT INTO reports(report_id, employee_id, store_id, time_in_out,type) VALUES('1', '1', 'newyork', '2020-07-24 00:09:00', 'in')")
 
+legodb.commit()
