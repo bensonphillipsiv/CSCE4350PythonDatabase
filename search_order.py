@@ -21,9 +21,10 @@ def orderMenu(store_id):
 
     if (database_operations.checkItems(store_id, part_number_list, list_amounts)):  # if there is stock available to buy
         database_operations.updateItems(store_id, part_number_list, list_amounts, -1)  # update database
+        if store_id != "online":
+            store_menu.paymentMenu(store_id, part_number_list, list_amounts)
     else:
         print("**Out of Stock**")
-    return store_id, part_number_list, list_amounts
 
 
 def searchMenu(store_id):

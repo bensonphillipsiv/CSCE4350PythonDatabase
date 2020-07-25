@@ -1,5 +1,6 @@
 import database_operations
 import search_order
+import introMenu
 
 
 # this menu will welcome user as well as determine whether they need to login or sign up.
@@ -9,6 +10,7 @@ def introOnlineMenu():
     # menu options
     print("1.) Signup\n")
     print("2.) Login\n")
+    print("3.) Return to Main Menu\n")
 
     choice = input()
 
@@ -16,6 +18,8 @@ def introOnlineMenu():
         customerSignup()
     elif choice == "2":
         customerLogin()
+    elif choice == "3":
+        introMenu.intro()
     else:
         print("Please Enter a Correct Menu Choice...")
 
@@ -109,6 +113,7 @@ def customerLogin():
     if (login_check == 1):
         loggedInMenu()
     else:
+        print("Incorrect Login Information")
         customerLogin()
     
 
@@ -122,5 +127,7 @@ def loggedInMenu():
 
     if choice == "1":
         search_order.orderMenu("online")
+        loggedInMenu()
     elif choice == "2":
         search_order.searchMenu("online")
+        loggedInMenu()

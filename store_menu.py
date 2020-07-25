@@ -1,5 +1,6 @@
 import database_operations
 import search_order
+import introMenu
 
 store_id = "N/A"
 global_employee_id = "N/A"
@@ -129,7 +130,7 @@ def managerMenu(employee_id):
     print("1.) Add Inventory\n")
     print("2.) Add Store\n")
     print("3.) Generate Report\n")
-    print("4.) Clock Out\n")
+    print("4.) Clock Out/ Return to Main Menu\n")
     choice = input()
 
     if choice == "1":
@@ -140,6 +141,7 @@ def managerMenu(employee_id):
         generateReport()
     elif choice == "4":
         database_operations.clock_in_out(employee_id, "out", store_id)
+        introMenu.intro()
     else:
         print("Please Enter a Correct Menu Choice...")
         managerMenu(employee_id)
@@ -151,17 +153,22 @@ def salesmanMenu(employee_id):
     # menu options
     print("1.) Sell Items\n")
     print("2.) Search Items\n")
-    print("3.) Clock Out\n")
+    print("3.) Clock Out/ Return to Main Menu\n")
     choice = input()
 
     global store_id
     if choice == "1":
-        store_id, part_number_list, list_amounts = search_order.orderMenu(store_id)
-        paymentMenu(store_id, part_number_list, list_amounts)
+        search_order.orderMenu(store_id)
+        salesmanMenu(employee_id)
     elif choice == "2":
         search_order.searchMenu(store_id)
+        salesmanMenu(employee_id)
     elif choice == "3":
         database_operations.clock_in_out(employee_id, "out", store_id)
+        introMenu.intro()
+    else:
+        print("Please Enter a Correct Menu Choice...")
+        salesmanMenu(employee_id)
 
 
 def paymentMenu(store_id, part_number_list, list_amounts):
@@ -195,6 +202,7 @@ def paymentMenu(store_id, part_number_list, list_amounts):
 
     database_operations.orderUpdate(store_id, global_employee_id, payment_type, part_number_list, list_amounts)
     print("Thank you for your payment")
+    salesmanMenu(global_employee_id)
 
 
 def addInventory():
@@ -205,6 +213,7 @@ def addInventory():
 
     choice = input()
     global store_id
+    global global_employee_id
     if choice == "1":
         store_id = "newyork"
     elif choice == "2":
@@ -228,12 +237,15 @@ def addInventory():
 
     database_operations.updateItems(store_id, part_number_list, list_amounts, 1)  # update database
 
+    managerMenu(global_employee_id)
+
 
 def addStore():
     print("Enter the store name: ")
     store_id = input()
 
     database_operations.addStore(store_id)
+    managerMenu(global_employee_id)
 
 
 def generateReport():
@@ -296,4 +308,5 @@ def generateReport():
             generateReport() 
     elif choice == "3":
         database_operations.generateOrdersReport()
-        
+
+    managerMenu(global_employee_id)
