@@ -462,7 +462,6 @@ def indEmployeeReport(period, employee_id):
     #Select sum(time_difference) from reports where DATE(time_in_out)= date_sub(curdate(), interval 10 day) AND employee_id = '1'
     print("\n\n\n") 
 
-    store_menu.managerMenu(store_menu.global_employee_id)
 
 #this will print a report for the individual store   
 def indStoreReport(period, ind_store_id):
