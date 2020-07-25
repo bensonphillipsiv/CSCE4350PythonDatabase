@@ -62,6 +62,7 @@ mycursor.execute(
 
 mycursor.execute("INSERT INTO Employees(employee_name, employee_type, store_id, employee_password) VALUES('bob', 'salesman', 'newyork', 'password')")
 mycursor.execute("INSERT INTO Employees(employee_name, employee_type, store_id, employee_password) VALUES('frank', 'salesman', 'losangeles', 'password')")
+mycursor.execute("INSERT INTO Employees(employee_name, employee_type, store_id, employee_password) VALUES('Armando Cardona', 'manager', 'newyork', 'password')")
 
 
 # creating the BrickSet table
@@ -202,6 +203,25 @@ mycursor.execute(
     "PRIMARY KEY (report_id))"
 )
 
-mycursor.execute("INSERT INTO reports(report_id, employee_id, store_id, time_in_out,type) VALUES('1', '1', 'newyork', '2020-07-24 00:09:00', 'in')")
+#populating monthly clock ins
+mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type) VALUES('1', 'newyork', '2020-06-24 00:09:00', 'in')")
+mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type) VALUES('2', 'losangeles', '2020-06-24 00:09:00', 'in')")
+mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type, time_difference) VALUES('1', 'newyork', '2020-06-24 00:17:00', 'out', '8')")
+mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type, time_difference) VALUES('2', 'losangeles', '2020-06-24 00:17:00', 'out', '8')")
 
+mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type) VALUES('1', 'newyork', '2020-06-25 00:09:00', 'in')")
+mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type) VALUES('2', 'losangeles', '2020-06-25 00:09:00', 'in')")
+mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type, time_difference) VALUES('1', 'newyork', '2020-06-25 00:17:00', 'out', '8')")
+mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type, time_difference) VALUES('2', 'losangeles', '2020-06-25 00:17:00', 'out', '8')")
+
+#populating weekly clock ins
+mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type) VALUES('1', 'newyork', '2020-06-20 00:09:00', 'in')")
+mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type) VALUES('2', 'losangeles', '2020-06-20 00:09:00', 'in')")
+mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type, time_difference) VALUES('1', 'newyork', '2020-06-20 00:17:00', 'out', '8')")
+mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type, time_difference) VALUES('2', 'losangeles', '2020-06-20 00:17:00', 'out', '8')")
+
+mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type) VALUES('1', 'newyork', '2020-06-21 00:09:00', 'in')")
+mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type) VALUES('2', 'losangeles', '2020-06-21 00:09:00', 'in')")
+mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type, time_difference) VALUES('1', 'newyork', '2020-06-21 00:17:00', 'out', '8')")
+mycursor.execute("INSERT INTO reports( employee_id, store_id, time_in_out,type, time_difference) VALUES('2', 'losangeles', '2020-06-21 00:17:00', 'out', '8')")
 legodb.commit()

@@ -391,7 +391,7 @@ def indEmployeeReport(period, employee_id):
         mycursor.execute(sqlformula1)
         
         check = mycursor.fetchone()
-        print("\nHours Worked Today: ", check[0]/60) 
+        print("\nHours Worked Today: ", check[0]) 
         #return check[0]
 
     elif (period == "weekly"):
@@ -418,7 +418,7 @@ def indEmployeeReport(period, employee_id):
         sqlformula1 = "Select sum(time_difference) from reports where (time_in_out between date_add(now(), interval -7 day) and now())  AND employee_id = '"+ employee_id +"'"
         mycursor.execute(sqlformula1)
         check = mycursor.fetchone()
-        print("\nHours Worked This Week: ", check[0]/60)
+        print("\nHours Worked This Week: ", check[0])
 
 
         
@@ -451,7 +451,7 @@ def indEmployeeReport(period, employee_id):
 
         
         check = mycursor.fetchone()
-        print("\nHours Worked This Month: ", check[0]/60) 
+        print("\nHours Worked This Month: ", check[0]) 
     #select sum(time_difference) from reports where employee_id = 1
     #Select sum(time_difference) from reports where DATE(time_in_out)= date_sub(curdate(), interval 1 day) AND employee_id = '1'
 
