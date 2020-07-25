@@ -57,6 +57,10 @@ mycursor.execute(
     "FOREIGN KEY (store_id) REFERENCES Stores(store_id))"
 )
 
+mycursor.execute("INSERT INTO Employees(employee_name, employee_type, store_id, employee_password) VALUES('bob', 'salesman', 'newyork', 'password')")
+mycursor.execute("INSERT INTO Employees(employee_name, employee_type, store_id, employee_password) VALUES('frank', 'salesman', 'losangeles', 'password')")
+
+
 # creating the BrickSet table
 mycursor.execute(
     "CREATE TABLE BrickSets ("
@@ -160,6 +164,9 @@ mycursor.execute(
     "FOREIGN KEY (employee_id) REFERENCES Employees(employee_id))"
 )
 
+mycursor.execute("INSERT INTO Orders(store_id, employee_id, payment_method) VALUES('newyork', '1', 'cash')")
+mycursor.execute("INSERT INTO Orders(store_id, employee_id, payment_method) VALUES('losangeles', '2', 'card')")
+
 # creating the OrderItems Table
 mycursor.execute(
     "CREATE TABLE OrderItems ("
@@ -172,6 +179,9 @@ mycursor.execute(
     "FOREIGN KEY (brick_id) REFERENCES Bricks(brick_id), "
     "FOREIGN KEY (brick_set_id) REFERENCES BrickSets(brick_set_id))"
 )
+
+mycursor.execute("INSERT INTO OrderItems(order_id, brick_id, brick_quantity) VALUES('1', '1', '5')")
+mycursor.execute("INSERT INTO OrderItems(order_id, brick_id, brick_quantity) VALUES('2', '1', '100')")
 
 # creating the report table
 mycursor.execute(
@@ -188,3 +198,4 @@ mycursor.execute(
     "FOREIGN KEY (store_id) REFERENCES Stores(store_id), "
     "PRIMARY KEY (report_id))"
 )
+

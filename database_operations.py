@@ -386,14 +386,9 @@ def indEmployeeReport(period, employee_id):
         mycursor.execute(sqlformula1)
         check = mycursor.fetchall()
 
-
-
         # this function will return hours worked by employee and other information 
         sqlformula1 = "Select sum(time_difference) from reports where (time_in_out between date_add(now(), interval -1 day) and now())  AND employee_id = '"+ employee_id +"'"
-        
-        
         mycursor.execute(sqlformula1)
-        
         
         check = mycursor.fetchone()
         print("\nHours Worked Today: ", check[0]/60) 
@@ -453,7 +448,7 @@ def indEmployeeReport(period, employee_id):
         
         
         mycursor.execute(sqlformula1)
-        
+
         
         check = mycursor.fetchone()
         print("\nHours Worked This Month: ", check[0]/60) 
