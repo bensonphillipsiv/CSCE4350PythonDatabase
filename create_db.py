@@ -7,7 +7,10 @@ legodb = mysql.connector.connect(
 )
 
 mycursor = legodb.cursor()
-mycursor.execute("DROP DATABASE LegoStoreDatabase")
+try:
+     mycursor.execute("DROP DATABASE LegoStoreDatabase")
+except:
+    pass
 
 mycursor.execute("CREATE DATABASE LegoStoreDatabase")
 
@@ -198,4 +201,3 @@ mycursor.execute(
     "FOREIGN KEY (store_id) REFERENCES Stores(store_id), "
     "PRIMARY KEY (report_id))"
 )
-

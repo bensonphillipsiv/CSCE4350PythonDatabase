@@ -560,7 +560,8 @@ def indStoreReport(period, ind_store_id):
     print("\n\n\n") 
     
     store_menu.managerMenu(store_menu.global_employee_id)
-    
+
+
 def generateOrdersReport():
     oi="Order ID"
     si="Store ID"
